@@ -1,0 +1,9 @@
+{
+    "env": {
+        "DB_USER":"urbanleaguemongo",
+        "DB_PASSWORD": "Li04NOubxHlCPD1e",
+        "DB_NAME": "urbanLeagueDatabase",
+        "GOOGLE_API_KEY": "AIzaSyDW5SNsej59lgc6DY0exq6x61DnsAjpwyU",
+        "JWT_KEY": "urban_league_secret_token"
+    }
+}
