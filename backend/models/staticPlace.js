@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const defaultPlaceSchema = new Schema({
+const staticPlaceSchema = new Schema({
   title: { type: String },
   description: { type: String },
   image: { type: String },
@@ -13,4 +13,4 @@ const defaultPlaceSchema = new Schema({
   }
 });
 
-module.exports = mongoose.model('DefaultPlaces', defaultPlaceSchema);
+module.exports = mongoose.model('StaticPlace', staticPlaceSchema);
