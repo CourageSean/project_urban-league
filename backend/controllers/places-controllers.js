@@ -7,12 +7,12 @@ const HttpError = require('../models/http-error');
 const getCoordsForAddress = require('../util/location');
 const Place = require('../models/place');
 const User = require('../models/user');
-const StaticPlace = require('../models/staticPlace');
+const staticPlace = require('../models/staticPlace');
 
 const getAllStaticPlaces = async (req, res, next) => {
   let staticPlaces;
   try {
-    staticPlaces = await StaticPlace.find();
+    staticPlaces = await staticPlace.find({});
   } catch (err) {
     const error = new HttpError(
       'Something went wrong, could not find static places.',
@@ -21,7 +21,15 @@ const getAllStaticPlaces = async (req, res, next) => {
     return next(error);
   }
 
-  res.json({ staticPlaces });
+  if (!staticPlaces) {
+    const error = new HttpError(
+      'Could not find staticplaces.',
+      404
+    );
+    return next(error);
+  }
+
+  res.json({ staticPlaces : staticPlaces});
 };
 
 const getAll = async (req, res, next) => {
@@ -260,6 +268,7 @@ const deletePlace = async (req, res, next) => {
 };
 
 exports.getAllStaticPlaces = getAllStaticPlaces;
+exports.getAll = getAll;
 exports.getPlaceById = getPlaceById;
 exports.getPlacesByUserId = getPlacesByUserId;
 exports.createPlace = createPlace;

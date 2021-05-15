@@ -13,4 +13,4 @@ const staticPlaceSchema = new Schema({
   }
 });
 
-module.exports = mongoose.model('StaticPlace', staticPlaceSchema);
+module.exports = mongoose.model('staticPlace', staticPlaceSchema);
