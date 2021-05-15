@@ -21,7 +21,7 @@ const getAllStaticPlaces = async (req, res, next) => {
     return next(error);
   }
 
-  res.json({ staticPlaces: staticPlaces.toObject({ getters: true }) });
+  res.json({ staticPlaces });
 };
 
 const getAll = async (req, res, next) => {
