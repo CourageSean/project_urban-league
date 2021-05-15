@@ -19,6 +19,31 @@ const getUsers = async (req, res, next) => {
   res.json({ users: users.map(user => user.toObject({ getters: true })) });
 };
 
+const getUserById = async (req, res, next) => {
+  const userId = req.params.uid;
+
+  let userProfile;
+  try {
+    userProfile = await User.findById(userId);
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not find a user.',
+      500
+    );
+    return next(error);
+  }
+
+  if (!userProfile) {
+    const error = new HttpError(
+      'Could not find user for the provided user_id.',
+      404
+    );
+    return next(error);
+  }
+
+  res.json({ userProfile: userProfile.toObject({ getters: true }) });
+};
+
 const signup = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -162,5 +187,6 @@ const login = async (req, res, next) => {
 };
 
 exports.getUsers = getUsers;
+exports.getUserById = getUserById;
 exports.signup = signup;
 exports.login = login;

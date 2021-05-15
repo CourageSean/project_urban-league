@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 
 import Users from './user/pages/Users';
+import UserProfile from './user/pages/UserProfile';
 import Map from './map/pages/Map';
 import NewPlace from './places/pages/NewPlace';
 import UserPlaces from './places/pages/UserPlaces';
@@ -26,6 +27,9 @@ const App = () => {
       <Switch>
         <Route path="/" exact>
           <Users />
+        </Route>
+        <Route path="/profile/:userId" exact>
+          <UserProfile />
         </Route>
         <Route path="/:userId/places" exact>
           <UserPlaces />
@@ -48,6 +52,9 @@ const App = () => {
       <Switch>
         <Route path="/" exact>
           <Users />
+        </Route>
+        <Route path="/profile/:userId" exact>
+          <UserProfile />
         </Route>
         <Route path="/:userId/places" exact>
           <UserPlaces />
