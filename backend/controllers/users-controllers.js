@@ -40,8 +40,12 @@ const getUserById = async (req, res, next) => {
     );
     return next(error);
   }
-
-  res.json({ userProfile: userProfile.toObject({ getters: true }) });
+  res.json({
+    userId: userProfile.id,
+    email: userProfile.email,
+    name: userProfile.name,
+    img: userProfile.image
+  });
 };
 
 const signup = async (req, res, next) => {

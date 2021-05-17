@@ -7,10 +7,8 @@ import './UserItem.css';
 
 const UserItem = props => {
   return (
-    <li className="user-item">
+    <div className="user-item">
       <Card className="user-item__content">
-      <Link to={`/profile/${props.id}`}>
-      </Link>
         <Link to={`/${props.id}/places`}>
           <div className="user-item__image">
             <Avatar image={`http://localhost:5000/${props.image}`} alt={props.name} />
@@ -23,7 +21,7 @@ const UserItem = props => {
           </div>
         </Link>
       </Card>
-    </li>
+    </div>
   );
 };
 
