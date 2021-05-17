@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 import Input from '../../shared/components/FormElements/Input';
 import Card from '../../shared/components/UIElements/Card';
@@ -11,6 +11,8 @@ import UserItem from '../components/UserItem';
 import ErrorModal from '../../shared/components/UIElements/ErrorModal';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 import { useHttpClient } from '../../shared/hooks/http-hook';
+
+import './PlaceItem.css';
 
 const UserProfile = () => {
   const [loadedUser, setLoadedUser] = useState();
@@ -26,7 +28,7 @@ const UserProfile = () => {
         );
         setLoadedUser(responseData);
         console.log(responseData);
-        
+
       } catch (err) { }
     };
     fetchUser();
@@ -51,18 +53,36 @@ const UserProfile = () => {
   }
 
   return (
-    <Card>
-      {loadedUser.id}
-      {loadedUser.email}
-        {loadedUser.name}
-          {loadedUser.img}
-          </Card>
-    
+    <ul className="profile-list">
+      <li className="profile-item">
+        <Card className="profile-item__content">
+          {isLoading && <LoadingSpinner asOverlay />}
+          <div className="profile-item__image">
+            <img
+              src={`http://localhost:5000/${loadedUser.img}`}
+              alt={loadedUser.img}
+            />
+          </div>
+          <div className="profile-item__info">
+            <h2>{loadedUser.name}</h2>
+            <h3>{loadedUser.name}</h3>
+            <p>{loadedUser.name}</p>
+          </div>
+        
+          <div>
+            <Link className="user-item__btn" to={`/${userId}/places`}>
+              <Button>
+                <span>SHOW FAVORITE PLACES</span>
+              </Button>
+            </Link>
+            </div>
 
+        </Card>
+      </li>
+    </ul>
   );
 
 };
-
 
 
 export default UserProfile;
