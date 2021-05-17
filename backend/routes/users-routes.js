@@ -24,6 +24,17 @@ router.post(
   usersController.signup
 );
 
+router.patch(
+  '/profile/:pid',
+  [
+    check('title')
+      .not()
+      .isEmpty(),
+    check('description').isLength({ min: 5 })
+  ],
+  usersController.updateProfile
+);
+
 router.post('/login', usersController.login);
 
 module.exports = router;
