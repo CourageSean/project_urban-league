@@ -7,6 +7,7 @@ const staticPlaceSchema = new Schema({
   description: { type: String },
   image: { type: String },
   address: { type: String },
+  activeUsers: [String],
   coordinates: {
     lat: { type: Number },
     lng: { type: Number }

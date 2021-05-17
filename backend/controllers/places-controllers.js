@@ -32,6 +32,55 @@ const getAllStaticPlaces = async (req, res, next) => {
   res.json({ staticPlaces : staticPlaces});
 };
 
+const updateStaticPlacesActiveUsers = async (req, res, next) => {
+
+  const placeId = req.params.uid;
+  console.log(placeId);
+  //const userId = req.body.userId;
+
+  let staticPlaceActive;
+
+  try {
+    staticPlaceActive = await staticPlace.findById(placeId);
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not find static places 01.',
+      500
+    );
+    return next(error);
+  }
+
+  try {
+    await staticPlaceActive.activeUsers.push("HarryFuckingPotter");
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong with push, could not update.',
+      500
+    );
+    return next(error);
+  }
+
+  try {
+    await staticPlaceActive.save();
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong with save, could not update.',
+      500
+    );
+    return next(error);
+  }
+
+  if (!staticPlaceActive) {
+    const error = new HttpError(
+      'Could not find staticplaces.',
+      404
+    );
+    return next(error);
+  }
+
+  res.json({ staticPlaceActive : staticPlaceActive});
+};
+
 const getAll = async (req, res, next) => {
   const placeId = req.params.pid;
 
@@ -268,6 +317,7 @@ const deletePlace = async (req, res, next) => {
 };
 
 exports.getAllStaticPlaces = getAllStaticPlaces;
+exports.updateStaticPlacesActiveUsers = updateStaticPlacesActiveUsers;
 exports.getAll = getAll;
 exports.getPlaceById = getPlaceById;
 exports.getPlacesByUserId = getPlacesByUserId;
