@@ -74,7 +74,7 @@ const UserProfile = () => {
           <div className="profile-item__actions">
             <Button to={`/${userId}/places`}>SHOW FAVORITE PLACES</Button>
             {auth.userId === loadedUser.userId && (
-              <Button to={`/places/${loadedUser.id}`}>EDIT</Button>
+              <Button to={`/profile/edit/${loadedUser.userId}`}>EDIT</Button>
             )}
             {auth.userId === loadedUser.userId && (
               <Button danger>

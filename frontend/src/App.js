@@ -16,6 +16,7 @@ import Auth from './user/pages/Auth';
 import MainNavigation from './shared/components/Navigation/MainNavigation';
 import { AuthContext } from './shared/context/auth-context';
 import { useAuth } from './shared/hooks/auth-hook';
+import UpdateProfile from './user/pages/UpdateProfile';
 
 const App = () => {
   const { token, login, logout, userId } = useAuth();
@@ -33,6 +34,9 @@ const App = () => {
         </Route>
         <Route path="/:userId/places" exact>
           <UserPlaces />
+        </Route>
+        <Route path="/profile/edit/:userId" exact>
+          <UpdateProfile />
         </Route>
         <Route path="/livemap" exact>
           <h1>livemap</h1>

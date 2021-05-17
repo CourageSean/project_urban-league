@@ -3,6 +3,8 @@ const { check } = require('express-validator');
 
 const usersController = require('../controllers/users-controllers');
 const fileUpload = require('../middleware/file-upload');
+const checkAuth = require('../middleware/check-auth');
+
 
 const router = express.Router();
 
@@ -24,17 +26,16 @@ router.post(
   usersController.signup
 );
 
+router.post('/login', usersController.login);
+
 router.patch(
-  '/profile/:pid',
+  '/profile/:uid',
   [
-    check('title')
+    check('name').isLength({ min: 5 })
       .not()
-      .isEmpty(),
-    check('description').isLength({ min: 5 })
+      .isEmpty()
   ],
   usersController.updateProfile
 );
-
-router.post('/login', usersController.login);
 
 module.exports = router;
