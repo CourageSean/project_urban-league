@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
 
 import Input from '../../shared/components/FormElements/Input';
@@ -7,9 +7,9 @@ import Button from '../../shared/components/FormElements/Button';
 import Modal from '../../shared/components/UIElements/Modal';
 import UsersList from '../components/UsersList';
 import UserItem from '../components/UserItem';
-
 import ErrorModal from '../../shared/components/UIElements/ErrorModal';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
+import { AuthContext } from '../../shared/context/auth-context';
 import { useHttpClient } from '../../shared/hooks/http-hook';
 
 import './UserProfile.css';
@@ -17,6 +17,7 @@ import './UserProfile.css';
 const UserProfile = () => {
   const [loadedUser, setLoadedUser] = useState();
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const auth = useContext(AuthContext);
   const userId = useParams().userId;
   console.log(userId);
 
@@ -68,14 +69,19 @@ const UserProfile = () => {
             <h3>{loadedUser.name}</h3>
             <p>{loadedUser.name}</p>
           </div>
-        
-          <div>
-            <Link className="user-item__btn" to={`/${userId}/places`}>
-              <Button>
-                <span>SHOW FAVORITE PLACES</span>
+
+
+          <div className="profile-item__actions">
+            <Button to={`/${userId}/places`}>Show places</Button>
+            {auth.userId === loadedUser.userId && (
+              <Button to={`/places/${loadedUser.id}`}>EDIT</Button>
+            )}
+            {auth.userId === loadedUser.userId && (
+              <Button danger>
+                DELETE
               </Button>
-            </Link>
-            </div>
+            )}
+          </div>
 
         </Card>
       </li>
