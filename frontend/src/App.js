@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Route,
   Redirect,
-  Switch
+  Switch,
 } from 'react-router-dom';
 
 import Users from './user/pages/Users';
@@ -26,51 +26,51 @@ const App = () => {
   if (token) {
     routes = (
       <Switch>
-        <Route path="/" exact>
+        <Route path='/' exact>
           <Users />
         </Route>
-        <Route path="/profile/:userId" exact>
+        <Route path='/profile/:userId' exact>
           <UserProfile />
         </Route>
-        <Route path="/:userId/places" exact>
+        <Route path='/:userId/places' exact>
           <UserPlaces />
         </Route>
-        <Route path="/profile/edit/:userId" exact>
+        <Route path='/profile/edit/:userId' exact>
           <UpdateProfile />
         </Route>
-        <Route path="/livemap" exact>
+        <Route path='/livemap' exact>
           <h1>livemap</h1>
           <Map />
         </Route>
-        <Route path="/places/new" exact>
+        <Route path='/places/new' exact>
           <NewPlace />
         </Route>
-        <Route path="/places/:placeId">
+        <Route path='/places/:placeId'>
           <UpdatePlace />
         </Route>
-        <Redirect to="/" />
+        <Redirect to='/' />
       </Switch>
     );
   } else {
     routes = (
       <Switch>
-        <Route path="/" exact>
+        <Route path='/' exact>
           <Users />
         </Route>
-        <Route path="/profile/:userId" exact>
+        <Route path='/profile/:userId' exact>
           <UserProfile />
         </Route>
-        <Route path="/:userId/places" exact>
+        <Route path='/:userId/places' exact>
           <UserPlaces />
         </Route>
-        <Route path="/livemap" exact>
+        <Route path='/livemap' exact>
           <h1>livemap</h1>
           <Map />
         </Route>
-        <Route path="/auth">
+        <Route path='/auth'>
           <Auth />
         </Route>
-        <Redirect to="/auth" />
+        <Redirect to='/auth' />
       </Switch>
     );
   }
@@ -82,7 +82,7 @@ const App = () => {
         token: token,
         userId: userId,
         login: login,
-        logout: logout
+        logout: logout,
       }}
     >
       <Router>

@@ -22,18 +22,15 @@ const getAllStaticPlaces = async (req, res, next) => {
   }
 
   if (!staticPlaces) {
-    const error = new HttpError(
-      'Could not find staticplaces.',
-      404
-    );
+    const error = new HttpError('Could not find staticplaces.', 404);
     return next(error);
   }
 
-  res.json({ staticPlaces : staticPlaces});
+  res.json({ staticPlaces: staticPlaces });
 };
 
 const updateStaticPlacesActiveUsers = async (req, res, next) => {
-
+  console.log(req.query);
   const placeId = req.params.uid;
   console.log(placeId);
   //const userId = req.body.userId;
@@ -51,7 +48,7 @@ const updateStaticPlacesActiveUsers = async (req, res, next) => {
   }
 
   try {
-    await staticPlaceActive.activeUsers.push("HarryFuckingPotter");
+    await staticPlaceActive.activeUsers.push('HarryFuckingPotter');
   } catch (err) {
     const error = new HttpError(
       'Something went wrong with push, could not update.',
@@ -71,14 +68,11 @@ const updateStaticPlacesActiveUsers = async (req, res, next) => {
   }
 
   if (!staticPlaceActive) {
-    const error = new HttpError(
-      'Could not find staticplaces.',
-      404
-    );
+    const error = new HttpError('Could not find staticplaces.', 404);
     return next(error);
   }
 
-  res.json({ staticPlaceActive : staticPlaceActive});
+  res.json({ staticPlaceActive: staticPlaceActive });
 };
 
 const getAll = async (req, res, next) => {
@@ -154,9 +148,9 @@ const getPlacesByUserId = async (req, res, next) => {
   }
 
   res.json({
-    places: userWithPlaces.places.map(place =>
+    places: userWithPlaces.places.map((place) =>
       place.toObject({ getters: true })
-    )
+    ),
   });
 };
 
@@ -183,7 +177,7 @@ const createPlace = async (req, res, next) => {
     address,
     location: coordinates,
     image: req.file.path,
-    creator: req.userData.userId
+    creator: req.userData.userId,
   });
 
   let user;
@@ -309,7 +303,7 @@ const deletePlace = async (req, res, next) => {
     return next(error);
   }
 
-  fs.unlink(imagePath, err => {
+  fs.unlink(imagePath, (err) => {
     console.log(err);
   });
 
