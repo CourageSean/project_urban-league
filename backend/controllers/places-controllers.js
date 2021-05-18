@@ -34,10 +34,12 @@ const getAllStaticPlaces = async (req, res, next) => {
 
 const getStaticPlaceById = async (req, res, next) => {
   const placeId = req.params.pid;
+  console.log(placeId);
 
   let place;
   try {
-    place = await Place.findById(placeId);
+    place = await staticPlace.findById(placeId);
+    console.log(place);
   } catch (err) {
     const error = new HttpError(
       'Something went wrong, could not find a place.',

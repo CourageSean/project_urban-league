@@ -9,6 +9,7 @@ const router = express.Router();
 
 
 router.get('/staticplaces', placesControllers.getAllStaticPlaces);
+router.get('/staticplaces/:pid', placesControllers.getStaticPlaceById);
 
 router.post('/staticplaces/:uid', placesControllers.updateStaticPlacesActiveUsers);
 
