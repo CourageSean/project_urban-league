@@ -13,7 +13,7 @@
   padding-left: 2%;
 }
 .form-control input::placeholder{
-  color:#fbf1f6;
+  color:#808080;
 }
 .form-control input,
 .form-control textarea {
@@ -21,17 +21,17 @@
   font: inherit;
   border: 2px solid #3FCEFE;
   border-radius: 20px;
-  background: rgb(44,44,44);
+  background: #FBFBFB;
   padding: 0.8rem 0.7rem;
 }
 .form-control input:focus,
-.form-control textarea:focus {
+.form-control textarea:focus{
   outline: none;
   background: #FBFBFB;
   border-color: #3FCEFE;
 }
 .form-control input:focus::placeholder{
-  color:rgb(44,44,44)
+  color:#808080
 }
 .form-control--invalid label,
 .form-control--invalid p {
@@ -43,5 +43,8 @@
   background: #FFD1D1;
 }
 .form-control--invalid input::placeholder{
-  color:rgb(44,44,44);
+  color:#808080;
+}
+.form-control--invalid #description::placeholder{
+  color:#808080;
 }

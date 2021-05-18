@@ -20,7 +20,6 @@ const UpdateProfile = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [loadedUser, setLoadedUser] = useState();
   const userId = useParams().userId;
-  console.log(userId);
   const history = useHistory();
 
   const [formState, inputHandler, setFormData] = useForm(
@@ -55,7 +54,7 @@ const UpdateProfile = () => {
     fetchUser();
   }, [sendRequest, userId, setFormData]);
 
-  const placeUpdateSubmitHandler = async event => {
+  const userUpdateSubmitHandler = async event => {
     event.preventDefault();
     try {
       await sendRequest(
@@ -95,7 +94,7 @@ const UpdateProfile = () => {
     <React.Fragment>
       <ErrorModal error={error} onClear={clearError} />
       {!isLoading && loadedUser && (
-        <form className="place-form" onSubmit={placeUpdateSubmitHandler}>
+        <form className="place-form" onSubmit={userUpdateSubmitHandler}>
           <Input
             id="name"
             element="input"

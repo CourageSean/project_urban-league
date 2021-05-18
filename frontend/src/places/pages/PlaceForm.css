@@ -11,6 +11,13 @@
   color: #F6F1FB;
   border:1px solid #F6F1FB;
 }
+#description:focus{
+  background: #FBFBFB;
+  color:#808080
+}
 #description::placeholder{
-  color: #F6F1FB;
+  color: #808080;
+}
+#description:focus::placeholder{
+  color:#808080;
 }

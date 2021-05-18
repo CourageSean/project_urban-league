@@ -14,7 +14,7 @@
 }
 .nav-links a {
   border: 1px solid transparent;
-  color: #222222;
+  color: #FBF1F6;
   text-decoration: none;
   padding: 0.5rem;
 }
@@ -28,10 +28,11 @@
 }
 .nav-links button {
   cursor: pointer;
-  border: 1px solid #222222;
-  color: #222222;
-  background: transparent;
-  padding: 0.5rem;
+  border: 1px solid transparent;
+  border-radius:20px;
+  color: #FBF1F6;
+  background: #3FCEFE;
+  padding: 0.7rem;
   font: inherit;
 }
 .nav-links button:focus {
