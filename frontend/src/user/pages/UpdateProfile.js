@@ -8,7 +8,7 @@ import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 import ErrorModal from '../../shared/components/UIElements/ErrorModal';
 import {
   VALIDATOR_REQUIRE,
-  VALIDATOR_MINLENGTH
+  VALIDATOR_MINLENGTH,
 } from '../../shared/util/validators';
 import { useForm } from '../../shared/hooks/form-hook';
 import { useHttpClient } from '../../shared/hooks/http-hook';
@@ -26,8 +26,8 @@ const UpdateProfile = () => {
     {
       name: {
         value: '',
-        isValid: false
-      }
+        isValid: false,
+      },
     },
     false
   );
@@ -36,7 +36,7 @@ const UpdateProfile = () => {
     const fetchUser = async () => {
       try {
         const responseData = await sendRequest(
-            `http://localhost:5000/api/users/profile/${userId}`
+          `http://localhost:5000/api/users/profile/${userId}`
         );
         setLoadedUser(responseData);
         console.log(responseData);
@@ -44,8 +44,8 @@ const UpdateProfile = () => {
           {
             name: {
               value: responseData.place.name,
-              isValid: true
-            }
+              isValid: true,
+            },
           },
           true
         );
@@ -54,7 +54,7 @@ const UpdateProfile = () => {
     fetchUser();
   }, [sendRequest, userId, setFormData]);
 
-  const userUpdateSubmitHandler = async event => {
+  const userUpdateSubmitHandler = async (event) => {
     event.preventDefault();
     try {
       await sendRequest(
@@ -65,7 +65,7 @@ const UpdateProfile = () => {
         }),
         {
           'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + auth.token
+          Authorization: 'Bearer ' + auth.token,
         }
       );
       history.push('/users/profile/' + auth.userId);
@@ -74,7 +74,7 @@ const UpdateProfile = () => {
 
   if (isLoading) {
     return (
-      <div className="center">
+      <div className='center'>
         <LoadingSpinner />
       </div>
     );
@@ -82,7 +82,7 @@ const UpdateProfile = () => {
 
   if (!loadedUser && !error) {
     return (
-      <div className="center">
+      <div className='center'>
         <Card>
           <h2>Could not find Profile!</h2>
         </Card>
@@ -94,20 +94,20 @@ const UpdateProfile = () => {
     <React.Fragment>
       <ErrorModal error={error} onClear={clearError} />
       {!isLoading && loadedUser && (
-        <form className="place-form" onSubmit={userUpdateSubmitHandler}>
+        <form className='place-form' onSubmit={userUpdateSubmitHandler}>
           <Input
-            id="name"
-            element="input"
-            type="text"
-            label="Name"
+            id='name'
+            element='input'
+            type='text'
+            label='Name'
             validators={[VALIDATOR_REQUIRE(2)]}
-            errorText="Please enter a valid name."
+            errorText='Please enter a valid name.'
             onInput={inputHandler}
             initialValue={loadedUser.name}
             initialValid={true}
           />
-         
-          <Button type="submit" disabled={!formState.isValid}>
+
+          <Button type='submit' disabled={!formState.isValid}>
             UPDATE PROFILE
           </Button>
         </form>

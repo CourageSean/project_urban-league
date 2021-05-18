@@ -436,6 +436,9 @@ const Map = () => {
         )}
         {selected && showDetails && (
           <div>
+            <div>
+              <img src='' alt='' />
+            </div>
             <h1
               onClick={() => {
                 setShowDetails(null);
@@ -443,8 +446,9 @@ const Map = () => {
             >
               X
             </h1>
-            <h2>Place Details</h2>
-            <h1>Text...</h1>
+            <h2>{selected.title}</h2>
+            <h1>[..] Users Checked In </h1>
+            <p></p>
             <button
               onClick={() => {
                 calculateRoute({

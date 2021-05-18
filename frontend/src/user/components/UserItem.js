@@ -6,25 +6,28 @@ import Card from '../../shared/components/UIElements/Card';
 import Button from '../../shared/components/FormElements/Button';
 import './UserItem.css';
 
-const UserItem = props => {
+const UserItem = (props) => {
   return (
-    <div className="user-item">
-      <Card className="user-item__content">
+    <div className='user-item'>
+      <Card className='user-item__content'>
         <Link to={`/profile/${props.id}`}>
-          <div className="user-item__image">
-            <Avatar image={`http://localhost:5000/${props.image}`} alt={props.name} />
+          <div className='user-item__image'>
+            <Avatar
+              image={`http://localhost:5000/${props.image}`}
+              alt={props.name}
+            />
           </div>
-          <div className="user-item__info">
+          <div className='user-item__info'>
             <h2>{props.name}</h2>
             <h3>
-              {props.placeCount} {props.placeCount === 1 ? 'FAVORITE PLACE' : 'FAVORITE PLACES'}
+              {props.placeCount}{' '}
+              {props.placeCount === 1 ? 'FAVORITE PLACE' : 'FAVORITE PLACES'}
             </h3>
           </div>
         </Link>
-        <div className="user-item__details">
-            <div>
-            </div>
-          </div>
+        <div className='user-item__details'>
+          <div></div>
+        </div>
       </Card>
     </div>
   );

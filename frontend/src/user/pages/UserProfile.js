@@ -29,15 +29,14 @@ const UserProfile = () => {
         );
         setLoadedUser(responseData);
         console.log(responseData);
-
-      } catch (err) { }
+      } catch (err) {}
     };
     fetchUser();
   }, [sendRequest, userId]);
 
   if (isLoading) {
     return (
-      <div className="center">
+      <div className='center'>
         <LoadingSpinner />
       </div>
     );
@@ -45,7 +44,7 @@ const UserProfile = () => {
 
   if (!loadedUser && !error) {
     return (
-      <div className="center">
+      <div className='center'>
         <Card>
           <h2>Could not find User!</h2>
         </Card>
@@ -54,41 +53,35 @@ const UserProfile = () => {
   }
 
   return (
-    <ul className="profile-list">
-      <li className="profile-item">
-        <Card className="profile-item__content">
+    <ul className='profile-list'>
+      <li className='profile-item'>
+        <Card className='profile-item__content'>
           {isLoading && <LoadingSpinner asOverlay />}
-          <div className="profile-item__image">
+          <div className='profile-item__image'>
             <img
               src={`http://localhost:5000/${loadedUser.img}`}
               alt={loadedUser.img}
             />
           </div>
-          <div className="profile-item__info">
+          <div className='profile-item__info'>
             <h2>{loadedUser.name}</h2>
             <h3>{loadedUser.name}</h3>
             <p>{loadedUser.name}</p>
           </div>
 
-
-          <div className="profile-item__actions">
+          <div className='profile-item__actions'>
             <Button to={`/${userId}/places`}>SHOW FAVORITE PLACES</Button>
             {auth.userId === loadedUser.userId && (
               <Button to={`/profile/edit/${loadedUser.userId}`}>EDIT</Button>
             )}
             {auth.userId === loadedUser.userId && (
-              <Button danger>
-                DELETE
-              </Button>
+              <Button danger>DELETE</Button>
             )}
           </div>
-
         </Card>
       </li>
     </ul>
   );
-
 };
-
 
 export default UserProfile;

@@ -58,14 +58,11 @@ app.get('/probe', (req, res) => {
 });
 
 mongoose
-  .connect(
-    `mongodb+srv://urbanleaguemongo:Li04NOubxHlCPD1e@cluster0.8h2fl.mongodb.net/urbanLeagueDatabase?retryWrites=true&w=majority`,
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-    }
-  )
+  .connect(process.env.CONNECTION_STRING, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+  })
   .then(() => {
     server.listen(PORT);
     console.log('listening port 5000');
