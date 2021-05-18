@@ -25,7 +25,7 @@ const UserProfile = () => {
     const fetchUser = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/users/profile/${userId}`
+          `${process.env.REACT_APP_BACKEND_URL}/users/profile/${userId}`
         );
         setLoadedUser(responseData);
         console.log(responseData);
@@ -59,7 +59,7 @@ const UserProfile = () => {
           {isLoading && <LoadingSpinner asOverlay />}
           <div className='profile-item__image'>
             <img
-              src={`http://localhost:5000/${loadedUser.img}`}
+              src={`${process.env.REACT_APP_ASSET_URL}/${loadedUser.img}`}
               alt={loadedUser.img}
             />
           </div>

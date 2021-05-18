@@ -58,13 +58,24 @@ app.get('/probe', (req, res) => {
 });
 
 mongoose
+<<<<<<< HEAD
   .connect(process.env.CONNECTION_STRING, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
   })
+=======
+  .connect(
+    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.8h2fl.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+    }
+  )
+>>>>>>> a5ebf19cc0407ff81b7a9cb3914d0260f0a79b03
   .then(() => {
-    server.listen(PORT);
+    server.listen(process.env.PORT || 5000);
     console.log('listening port 5000');
   })
   .catch((err) => {
