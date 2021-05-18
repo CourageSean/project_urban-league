@@ -13,8 +13,8 @@
 .modal__header {
   width: 100%;
   padding: 1rem 0.5rem;
-  background: #3FCEFE;
-  color: white;
+  background: #DC143C;
+  color: #FBFBFB;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
 }

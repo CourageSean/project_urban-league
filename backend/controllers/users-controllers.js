@@ -199,12 +199,15 @@ const updateProfile = async (req, res, next) => {
   }
 
   const { name } = req.body;
-  const userId = req.params.pid;
+  const userId = req.params.uid;
+  console.log(userId);
 
   let user;
   try {
     user = await User.findById(userId);
+    ///////////////////////
     console.log(user);
+    ///////////////////////
   } catch (err) {
     const error = new HttpError(
       'Something went wrong, could not update place.',
@@ -213,8 +216,9 @@ const updateProfile = async (req, res, next) => {
     return next(error);
   }
 
-  if (User.id.toString() !== req.userData.userId) {
-    console.log(req.userData.userId);
+  if (user._id.toString() !== userId) {
+    console.log(user._id);
+    console.log(userId);
     const error = new HttpError('You are not allowed to edit this place.', 401);
     return next(error);
   }

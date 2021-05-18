@@ -29,8 +29,8 @@
   background: #3FCEFE;
 }
 .button--danger {
-  background: #B453ED;
-  border-color: #B453ED;
+  background:#dc143c;
+  border-color: #DC143C;
 }
 .button--danger:hover,
 .button--danger:active {
