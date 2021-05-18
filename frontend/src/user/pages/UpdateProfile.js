@@ -36,7 +36,7 @@ const UpdateProfile = () => {
     const fetchUser = async () => {
       try {
         const responseData = await sendRequest(
-            `http://localhost:5000/api/users/profile/${userId}`
+            `${process.env.REACT_APP_BACKEND_URL}/users/profile/${userId}`
         );
         setLoadedUser(responseData);
         console.log(responseData);
@@ -58,7 +58,7 @@ const UpdateProfile = () => {
     event.preventDefault();
     try {
       await sendRequest(
-        `http://localhost:5000/api/users/profile/${userId}`,
+        `${process.env.REACT_APP_BACKEND_URL}/users/profile/${userId}`,
         'PATCH',
         JSON.stringify({
           name: formState.inputs.name.value,

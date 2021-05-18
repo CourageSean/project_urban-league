@@ -11,6 +11,8 @@ import axios from 'axios';
 // import mapStyles from '../components/mapStyles';
 import io from 'socket.io-client';
 import UsersList from '../components/UsersList';
+import Modal from '../../shared/components/UIElements/Modal';
+import Button from '../../shared/components/FormElements/Button';
 import ErrorModal from '../../shared/components/UIElements/ErrorModal';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 import { useHttpClient } from '../../shared/hooks/http-hook';
@@ -42,6 +44,24 @@ const center = {
 };
 
 const Map = () => {
+
+  const Modal = ({ handleClose, show, children }) => {
+    const showHideClassName = show ? 'modal display-block' : 'modal display-none';
+  
+    return (
+      <div className={showHideClassName}>
+        <section className='modal-main'>
+          {children}
+          <button
+            onClick={handleClose}
+          >
+            Close
+          </button>
+        </section>
+      </div>
+    );
+  };
+
   const { error, sendRequest, clearError } = useHttpClient();
   const [isLoading, setIsLoading] = useState();
   const [loadedUsers, setLoadedUsers] = useState();
@@ -96,7 +116,7 @@ const Map = () => {
     const getUsersLocation = async () => {
       try {
         setIsLoading(true);
-        const { data } = await axios.get('http://localhost:5000/api/users');
+        const { data } = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/users`);
         setMarkers(data.users);
         setLoadedUsers(data);
         setIsLoading(false);
@@ -109,7 +129,7 @@ const Map = () => {
       try {
         setIsLoading(true);
         const { data } = await axios.get(
-          'http://localhost:5000/api/places/staticplaces'
+          `${process.env.REACT_APP_BACKEND_URL}/places/staticplaces`
         );
         setPlaces(data.staticPlaces);
 
@@ -243,7 +263,7 @@ const Map = () => {
   const getSinglePlace = async () => {
     try {
       const { data } = await axios.get(
-        'http://localhost:5000/api/places/609fa79b54e4b187699b9403'
+        `${process.env.REACT_APP_BACKEND_URL}/places/609fa79b54e4b187699b9403`
       );
 
       console.log(data, 'single place');
@@ -281,7 +301,7 @@ const Map = () => {
           <LoadingSpinner />
         </div>
       )}
-      {isLoading === false && loadedUsers && <UsersList items={loadedUsers} />}
+      {isLoading === false}
       <div className='map-container'>
         {/* <Search panTo={panTo} /> */}
 
@@ -435,30 +455,12 @@ const Map = () => {
           </GoogleMap>
         )}
         {selected && showDetails && (
-          <div>
-            <h1
-              onClick={() => {
-                setShowDetails(null);
-              }}
-            >
-              X
-            </h1>
-            <h2>Place Details</h2>
-            <h1>Text...</h1>
-            <button
-              onClick={() => {
-                calculateRoute({
-                  lat: selected.liveLocation.lat,
-                  lng: selected.liveLocation.lng,
-                });
-                setShowDetails(null);
-                setSinglePlace(null);
-              }}
-            >
-              navigate
-            </button>
-            <button>Check In</button>
-          </div>
+    /***************************************************/
+        <>
+        </>
+         
+/***************************************************/
+
         )}
       </div>
       <button
