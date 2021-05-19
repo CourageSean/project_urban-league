@@ -59,47 +59,90 @@ const getStaticPlaceById = async (req, res, next) => {
 const updateStaticPlacesActiveUsers = async (req, res, next) => {
   console.log(req.query);
   const placeId = req.params.uid;
-  console.log(placeId);
+  const userId = req.query.userId;
+  const time = req.query.time;
+
   //const userId = req.body.userId;
 
-  let staticPlaceActive;
+  //{country:req.query.location, activity:req.query.activity}
+  staticPlace.findById(placeId).then((result) => {
+    const newList = [...result.activeUsers, userId];
+    staticPlace.findByIdAndUpdate(
+      { _id: placeId },
+      { activeUsers: newList },
+      function (err, result) {
+        if (err) {
+          res.send(err);
+        } else {
+          setTimeout(() => {
+            staticPlace.findById(placeId).then((result) => {
+              const newListUpdate = [...result.activeUsers];
+              const listUpdated = newListUpdate.filter((elt) => {
+                return elt !== userId;
+              });
 
-  try {
-    staticPlaceActive = await staticPlace.findById(placeId);
-  } catch (err) {
-    const error = new HttpError(
-      'Something went wrong, could not find static places 01.',
-      500
+              console.log('list:', newListUpdate);
+              console.log('Filteredlist:', listUpdated);
+              console.log('userId:', userId);
+
+              staticPlace.findByIdAndUpdate(
+                { _id: placeId },
+                {
+                  activeUsers: listUpdated,
+                },
+                function (err, result) {
+                  if (err) {
+                    res.send(err);
+                  } else {
+                  }
+                }
+              );
+            });
+          }, Number(time));
+          res.send(result);
+        }
+      }
     );
-    return next(error);
-  }
+  });
 
-  try {
-    await staticPlaceActive.activeUsers.push('HarryFuckingPotter');
-  } catch (err) {
-    const error = new HttpError(
-      'Something went wrong with push, could not update.',
-      500
-    );
-    return next(error);
-  }
+  // let staticPlaceActive;
 
-  try {
-    await staticPlaceActive.save();
-  } catch (err) {
-    const error = new HttpError(
-      'Something went wrong with save, could not update.',
-      500
-    );
-    return next(error);
-  }
+  // try {
+  //   staticPlaceActive = await staticPlace.findById(placeId);
+  // } catch (err) {
+  //   const error = new HttpError(
+  //     'Something went wrong, could not find static places 01.',
+  //     500
+  //   );
+  //   return next(error);
+  // }
 
-  if (!staticPlaceActive) {
-    const error = new HttpError('Could not find staticplaces.', 404);
-    return next(error);
-  }
+  // try {
+  //   await staticPlaceActive.activeUsers.push('HarryFuckingPotter');
+  // } catch (err) {
+  //   const error = new HttpError(
+  //     'Something went wrong with push, could not update.',
+  //     500
+  //   );
+  //   return next(error);
+  // }
 
-  res.json({ staticPlaceActive: staticPlaceActive });
+  // try {
+  //   await staticPlaceActive.save();
+  // } catch (err) {
+  //   const error = new HttpError(
+  //     'Something went wrong with save, could not update.',
+  //     500
+  //   );
+  //   return next(error);
+  // }
+
+  // if (!staticPlaceActive) {
+  //   const error = new HttpError('Could not find staticplaces.', 404);
+  //   return next(error);
+  // }
+
+  // res.json({ staticPlaceActive: staticPlaceActive });
 };
 
 const getAll = async (req, res, next) => {
