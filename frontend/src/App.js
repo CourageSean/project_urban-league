@@ -13,6 +13,7 @@ import NewPlace from './places/pages/NewPlace';
 import UserPlaces from './places/pages/UserPlaces';
 import UpdatePlace from './places/pages/UpdatePlace';
 import Auth from './user/pages/Auth';
+import GetStarted from './user/pages/GetStarted';
 import MainNavigation from './shared/components/Navigation/MainNavigation';
 import { AuthContext } from './shared/context/auth-context';
 import { useAuth } from './shared/hooks/auth-hook';
@@ -54,6 +55,9 @@ const App = () => {
   } else {
     routes = (
       <Switch>
+        <Route path='/' exact>
+          <GetStarted />
+        </Route>
         <Route path='/auth'>
           <Auth />
         </Route>
