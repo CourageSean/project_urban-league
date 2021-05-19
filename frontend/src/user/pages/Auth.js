@@ -1,5 +1,7 @@
 import React, { useState, useContext } from 'react';
 
+import { Multiselect } from "multiselect-react-dropdown";
+
 import Card from '../../shared/components/UIElements/Card';
 import Input from '../../shared/components/FormElements/Input';
 import Button from '../../shared/components/FormElements/Button';
@@ -17,6 +19,17 @@ import { AuthContext } from '../../shared/context/auth-context';
 import './Auth.css';
 
 const Auth = () => {
+
+  const data = [
+    {favoriteSport: 'Soccer', id: 1},
+    {favoriteSport: 'Basketball', id: 2},
+    {favoriteSport: 'Table Tennis', id: 3},
+    {favoriteSport: 'Field Hockey', id: 4},
+    {favoriteSport: 'Volleyball', id: 5}
+  ]
+
+  const [options] = useState(data);
+
   const auth = useContext(AuthContext);
   const [isLoginMode, setIsLoginMode] = useState(true);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -42,6 +55,7 @@ const Auth = () => {
           ...formState.inputs,
           name: undefined,
           about: undefined,
+          favoriteSport: undefined,
           image: undefined
         },
         formState.inputs.email.isValid && formState.inputs.password.isValid
@@ -58,6 +72,11 @@ const Auth = () => {
           about: {
             value: '',
             isValid: false
+          },
+
+          favoriteSport: {
+            value: '',
+            isValid: true
           },
 
           image: {
@@ -95,6 +114,7 @@ const Auth = () => {
         formData.append('email', formState.inputs.email.value);
         formData.append('name', formState.inputs.name.value);
         formData.append('about', formState.inputs.about.value);
+        formData.append('favoriteSport', formState.inputs.favoriteSport.value);
         formData.append('password', formState.inputs.password.value);
         formData.append('image', formState.inputs.image.value);
         const responseData = await sendRequest(
@@ -146,6 +166,18 @@ const Auth = () => {
               onInput={inputHandler}
             />
           )}
+          {!isLoginMode && (
+            <>
+              <span className="custom-span-multiselect">Favorite sports</span>
+              <Multiselect
+                placeholder="Select any"
+                id="favoriteSport"
+                options={options}
+                displayValue="favoriteSport"
+              />
+            </>
+          )}
+
           <Input
             element='input'
             id='email'

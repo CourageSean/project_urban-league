@@ -66,7 +66,6 @@ const UserProfile = () => {
           <div className='profile-item__info'>
             <h2>{loadedUser.name}</h2>
             <p>{loadedUser.about}</p>
-            <p>{loadedUser.name}</p>
           </div>
 
           <div className='profile-item__actions'>

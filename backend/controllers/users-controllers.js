@@ -200,9 +200,9 @@ const updateProfile = async (req, res, next) => {
     );
   }
 
-  const { name } = req.body;
+  const name  = req.body.name;
+  const about  = req.body.about;
   const userId = req.params.uid;
-  console.log(userId);
 
   let user;
   try {
@@ -221,11 +221,12 @@ const updateProfile = async (req, res, next) => {
   if (user._id.toString() !== userId) {
     console.log(user._id);
     console.log(userId);
-    const error = new HttpError('You are not allowed to edit this place.', 401);
+    const error = new HttpError('You are not allowed to edit this profile.', 401);
     return next(error);
   }
 
   user.name = name;
+  user.about = about;
 
   try {
     await user.save();

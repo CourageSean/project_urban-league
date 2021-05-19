@@ -14,3 +14,46 @@
 .authentication form {
   margin-bottom: 1rem;
 }
+
+
+/*Multiselect*/
+/* Overriding element hover */
+.optionContainer li:hover,
+.optionContainer .highlight {
+  background: #3fcefe;
+  color: #fff;
+}
+/* Ends overriding */
+
+/* Placehoolder Color Change */
+.searchBox#css_custom_input::placeholder {
+  color: #3fcefe;
+  border-radius: 20px;
+}
+
+.multiselect-container {
+  background-color: #fff;
+  border-radius: 20px;
+}
+
+.search-wrapper {
+  padding: 0.8rem 0.7rem;
+  border: 2px solid #3FCEFE;
+  border-radius: 20px;
+}
+
+.chip {
+  background: #3fcefe;
+}
+
+.optionListContainer {
+  color: #000;
+}
+
+.custom-span-multiselect {
+  display: block;
+  text-align: left;
+  margin-bottom: 8px;
+  margin-left: 6px;
+  font-weight: bold;
+}
