@@ -28,6 +28,11 @@ const UpdateProfile = () => {
         value: '',
         isValid: false,
       },
+      about: {
+        value: '',
+        isValid: false,
+      },
+      
     },
     false
   );
@@ -43,7 +48,11 @@ const UpdateProfile = () => {
         setFormData(
           {
             name: {
-              value: responseData.place.name,
+              value: responseData.name,
+              isValid: true,
+            },
+            about: {
+              value: responseData.about,
               isValid: true,
             },
           },
@@ -62,6 +71,7 @@ const UpdateProfile = () => {
         'PATCH',
         JSON.stringify({
           name: formState.inputs.name.value,
+          about: formState.inputs.about.value,
         }),
         {
           'Content-Type': 'application/json',
@@ -100,10 +110,20 @@ const UpdateProfile = () => {
             element='input'
             type='text'
             label='Name'
-            validators={[VALIDATOR_REQUIRE(2)]}
+            validators={[VALIDATOR_REQUIRE()]}
             errorText='Please enter a valid name.'
             onInput={inputHandler}
             initialValue={loadedUser.name}
+            initialValid={true}
+          />
+           <Input
+            id='about'
+            element='textarea'
+            label='About'
+            validators={[VALIDATOR_REQUIRE()]}
+            errorText='Please enter a short info.'
+            onInput={inputHandler}
+            initialValue={loadedUser.about}
             initialValid={true}
           />
 

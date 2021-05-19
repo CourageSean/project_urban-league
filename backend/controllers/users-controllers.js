@@ -200,7 +200,7 @@ const updateProfile = async (req, res, next) => {
     );
   }
 
-  const { name } = req.body;
+  const { name, about } = req.body;
   const userId = req.params.uid;
   console.log(userId);
 
@@ -226,6 +226,7 @@ const updateProfile = async (req, res, next) => {
   }
 
   user.name = name;
+  user.about = about;
 
   try {
     await user.save();
