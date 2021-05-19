@@ -57,7 +57,7 @@ const signup = async (req, res, next) => {
     );
   }
 
-  const { name, email, password } = req.body;
+  const { name, about, email, password } = req.body;
 
   let existingUser;
   try {
