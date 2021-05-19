@@ -28,12 +28,12 @@ const NavLinks = props => {
       )}
       {auth.isLoggedIn && (
         <li>
-          <NavLink to={`/${auth.userId}/places`}>MY FAVORITE PLACES</NavLink>
+          <NavLink to="/places/new">ADD FAVORITE PLACE</NavLink>
         </li>
       )}
-      {auth.isLoggedIn && (
+       {auth.isLoggedIn && (
         <li>
-          <NavLink to="/places/new">ADD FAVORITE PLACE</NavLink>
+          <NavLink to={`/${auth.userId}/places`}>MY FAVORITE PLACES</NavLink>
         </li>
       )}
       {!auth.isLoggedIn && (
