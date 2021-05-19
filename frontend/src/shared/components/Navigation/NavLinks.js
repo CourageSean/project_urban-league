@@ -9,32 +9,31 @@ const NavLinks = props => {
 
   return (
     <ul className="nav-links">
-
-      <li>
-        <NavLink to="/livemap">LIVEMAP</NavLink>
-      </li>
-
+      {auth.isLoggedIn && (
+        <li>
+          <NavLink to="/livemap">LIVEMAP</NavLink>
+        </li>
+      )}
+      {auth.isLoggedIn && (
       <li>
         <NavLink to="/" exact>
           ALL USERS
         </NavLink>
       </li>
-
+      )}
       {auth.isLoggedIn && (
         <li>
           <NavLink to={`/profile/${auth.userId}`}>PROFILE</NavLink>
         </li>
       )}
-
-      {auth.isLoggedIn && (
-        <li>
-          <NavLink to={`/${auth.userId}/places`}>MY FAVORITE PLACES</NavLink>
-        </li>
-      )}
-
       {auth.isLoggedIn && (
         <li>
           <NavLink to="/places/new">ADD FAVORITE PLACE</NavLink>
+        </li>
+      )}
+       {auth.isLoggedIn && (
+        <li>
+          <NavLink to={`/${auth.userId}/places`}>MY FAVORITE PLACES</NavLink>
         </li>
       )}
       {!auth.isLoggedIn && (
