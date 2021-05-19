@@ -200,10 +200,9 @@ const updateProfile = async (req, res, next) => {
     );
   }
 
-  const { name, about } = req.body;
+  const name  = req.body.name;
+  const about  = req.body.about;
   const userId = req.params.uid;
-  console.log(userId);
-  console.log(about);
 
   let user;
   try {
