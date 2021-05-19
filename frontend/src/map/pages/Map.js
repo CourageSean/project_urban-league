@@ -24,7 +24,7 @@ import { useHttpClient } from '../../shared/hooks/http-hook';
 //   { liveLocation: { lat: 50.915165747607714, lng: 6.10777325822752 } },
 // ];
 
-const socket = io('localhost:5000');
+const socket = io('https://urban-league.herokuapp.com/');
 //needed variables
 
 const libraries = ['places'];
