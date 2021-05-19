@@ -44,19 +44,16 @@ const center = {
 };
 
 const Map = () => {
-
   const Modal = ({ handleClose, show, children }) => {
-    const showHideClassName = show ? 'modal display-block' : 'modal display-none';
-  
+    const showHideClassName = show
+      ? 'modal display-block'
+      : 'modal display-none';
+
     return (
       <div className={showHideClassName}>
         <section className='modal-main'>
           {children}
-          <button
-            onClick={handleClose}
-          >
-            Close
-          </button>
+          <button onClick={handleClose}>Close</button>
         </section>
       </div>
     );
@@ -116,7 +113,9 @@ const Map = () => {
     const getUsersLocation = async () => {
       try {
         setIsLoading(true);
-        const { data } = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/users`);
+        const { data } = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/users`
+        );
         setMarkers(data.users);
         setLoadedUsers(data);
         setIsLoading(false);
@@ -425,8 +424,9 @@ const Map = () => {
               >
                 <div>
                   {selected && !selectedPlace && <h2>Text</h2>}
-                  {selectedPlace && <h2>Rate 3.5/5</h2>}
-                  {selectedPlace && <h3>{selectedPlace}</h3>}
+                  {selectedPlace && <h2>{selected.title}</h2>}
+                  {selectedPlace && <h4>Rate 3.5/5</h4>}
+                  {selectedPlace && <h4>{selected.address}</h4>}
 
                   {selectedPlace && (
                     <button
@@ -455,12 +455,28 @@ const Map = () => {
           </GoogleMap>
         )}
         {selected && showDetails && (
-    /***************************************************/
-        <>
-        </>
-         
-/***************************************************/
+          /***************************************************/
+          <>
+            <div>
+              <img src={selected.image} alt='' />
+            </div>
+            <h1
+              onClick={() => {
+                setShowDetails(false);
+              }}
+            >
+              X
+            </h1>
+            <h2>{selected.title}</h2>
+            <h3>{selected.address}</h3>
+            <h4>{selected.activeUsers.length} Users Checked In </h4>
+            <h4>blablabla....descriptopn Text </h4>
+            <h4>possible sports </h4>
+            <button>Route</button>
+            <button>Check In</button>
+          </>
 
+          /***************************************************/
         )}
       </div>
       <button
