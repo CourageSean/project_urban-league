@@ -69,7 +69,6 @@ const Map = () => {
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [shortInfo, setShortInfo] = useState(null);
   const [origin, setOrigin] = useState(null);
-  const [LoadedUsersToFilter, setLoadedUsersToFilter] = useState(null);
   const [testArray, setTestArray] = useState([
     { liveLocation: { lat: 50.915165747607714, lng: 6.10337325822752 } },
     { liveLocation: { lat: 50.917165747607714, lng: 6.18337325822752 } },
@@ -120,7 +119,7 @@ const Map = () => {
         setMarkers(data.users);
         setLoadedUsers(data);
         setIsLoading(false);
-        console.log(data.users, 'loaded Users');
+        console.log(data.users);
       } catch (error) {
         console.log(error);
       }
@@ -219,15 +218,10 @@ const Map = () => {
     });
     socket.on('position_room', (data) => {
       setLastMessage(data);
-      // const filteredUser = loadedUsers.users.find((user) => {
-      //   return user._id === data[2];
-      // });
-      console.log(markers, 'users to filter');
       const newUserOnMap = {
         lat: data[0],
         lng: data[1],
         userId: data[2],
-        name: '',
       };
       const user_Id = data[2];
       console.log(user_Id, 'userID');
@@ -363,7 +357,7 @@ const Map = () => {
                     onClick={() => {
                       //   setShortInfo(marker);
                       setSelected(elt);
-
+                      setSelectedPlace('More info about place');
                       console.log(elt);
                     }}
                     icon={{
@@ -371,6 +365,7 @@ const Map = () => {
                       origin: new window.google.maps.Point(0, 0),
                       anchor: new window.google.maps.Point(15, 15),
                       scaledSize: new window.google.maps.Size(50, 50),
+                      label: 'hallo',
                     }}
                   />
                 </div>
@@ -383,17 +378,6 @@ const Map = () => {
                     position={{
                       lat: newMarker.lat,
                       lng: newMarker.lng,
-                    }}
-                    label={{
-                      color: '#00aaff',
-                      fontWeight: 'bold',
-                      fontSize: '14px',
-                      text: newMarker.name,
-                    }}
-                    onClick={() => {
-                      //   setShortInfo(marker);
-                      // setSelected(elt);
-                      console.log(newMarker);
                     }}
                   />
                 </div>
@@ -443,17 +427,12 @@ const Map = () => {
                   {selectedPlace && <h2>{selected.title}</h2>}
                   {selectedPlace && <h4>Rate 3.5/5</h4>}
                   {selectedPlace && <h4>{selected.address}</h4>}
-                  {selectedPlace && (
-                    <h5>
-                      current users checked In: {selected.activeUsers.length}
-                    </h5>
-                  )}
 
                   {selectedPlace && (
                     <button
                       onClick={() => {
                         setShowDetails(true);
-                        console.log(selected);
+                        console.log(selected.title);
                       }}
                     >
                       More Info & Check In
@@ -476,13 +455,14 @@ const Map = () => {
           </GoogleMap>
         )}
         {selected && showDetails && (
-          <div>
+          /***************************************************/
+          <>
             <div>
-              <img src='' alt='' />
+              <img src={selected.image} alt='' />
             </div>
             <h1
               onClick={() => {
-                setShowDetails(null);
+                setShowDetails(false);
               }}
             >
               X
@@ -492,20 +472,11 @@ const Map = () => {
             <h4>{selected.activeUsers.length} Users Checked In </h4>
             <h4>blablabla....descriptopn Text </h4>
             <h4>possible sports </h4>
-            <button
-              onClick={() => {
-                calculateRoute({
-                  lat: selected.liveLocation.lat,
-                  lng: selected.liveLocation.lng,
-                });
-                setShowDetails(null);
-                setSinglePlace(null);
-              }}
-            >
-              navigate
-            </button>
+            <button>Route</button>
             <button>Check In</button>
-          </div>
+          </>
+
+          /***************************************************/
         )}
       </div>
       <button
