@@ -41,6 +41,7 @@ const Auth = () => {
         {
           ...formState.inputs,
           name: undefined,
+          about: undefined,
           image: undefined
         },
         formState.inputs.email.isValid && formState.inputs.password.isValid
@@ -53,6 +54,12 @@ const Auth = () => {
             value: '',
             isValid: false
           },
+
+          about: {
+            value: '',
+            isValid: false
+          },
+
           image: {
             value: null,
             isValid: false
@@ -87,6 +94,7 @@ const Auth = () => {
         const formData = new FormData();
         formData.append('email', formState.inputs.email.value);
         formData.append('name', formState.inputs.name.value);
+        formData.append('about', formState.inputs.about.value);
         formData.append('password', formState.inputs.password.value);
         formData.append('image', formState.inputs.image.value);
         const responseData = await sendRequest(
@@ -108,6 +116,14 @@ const Auth = () => {
         <h2>Login Required</h2>
         <hr />
         <form onSubmit={authSubmitHandler}>
+        {!isLoginMode && (
+            <ImageUpload
+              center
+              id="image"
+              onInput={inputHandler}
+              errorText="Please provide an image."
+            />
+          )}
           {!isLoginMode && (
             <Input
               element="input"
@@ -119,12 +135,15 @@ const Auth = () => {
               onInput={inputHandler}
             />
           )}
-          {!isLoginMode && (
-            <ImageUpload
-              center
-              id="image"
+           {!isLoginMode && (
+            <Input
+              element="textarea"
+              id="about"
+              type="textarea"
+              label="About"
+              validators={[VALIDATOR_REQUIRE()]}
+              errorText="Please enter a short description."
               onInput={inputHandler}
-              errorText="Please provide an image."
             />
           )}
           <Input
