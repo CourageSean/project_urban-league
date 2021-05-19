@@ -44,6 +44,7 @@ const getUserById = async (req, res, next) => {
     userId: userProfile.id,
     email: userProfile.email,
     name: userProfile.name,
+    about: userProfile.about,
     img: userProfile.image
   });
 };
@@ -90,6 +91,7 @@ const signup = async (req, res, next) => {
 
   const createdUser = new User({
     name,
+    about,
     email,
     image: req.file.path,
     password: hashedPassword,
