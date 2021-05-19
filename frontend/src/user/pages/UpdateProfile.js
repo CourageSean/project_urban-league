@@ -36,11 +36,7 @@ const UpdateProfile = () => {
     const fetchUser = async () => {
       try {
         const responseData = await sendRequest(
-<<<<<<< HEAD
-          `http://localhost:5000/api/users/profile/${userId}`
-=======
-            `${process.env.REACT_APP_BACKEND_URL}/users/profile/${userId}`
->>>>>>> a5ebf19cc0407ff81b7a9cb3914d0260f0a79b03
+          `${process.env.REACT_APP_BACKEND_URL}/users/profile/${userId}`
         );
         setLoadedUser(responseData);
         console.log(responseData);
