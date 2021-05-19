@@ -82,7 +82,8 @@ const Map = () => {
   const [lastMessage, setLastMessage] = useState(null);
   const [testMarkers, setTestMarkers] = useState([]);
   const [ownLocation, setOwnLocation] = useState(null);
-
+  const [newMarker, setNewMarker] = useState([]);
+  const Arr = [];
   // User Posiotion State
   const [user_1Position, setUser_1Position] = useState();
   // On Mapload
@@ -225,12 +226,23 @@ const Map = () => {
       };
       const user_Id = data[2];
       console.log(user_Id, 'userID');
-      const checkArray = [...testMarkers];
-      checkArray.filter((elt) => {
-        return elt.userId !== user_Id;
-      });
-      setTestMarkers([...checkArray, newUserOnMap]);
-      console.log(data, 'newUserOnMap:', newUserOnMap);
+      // const checkArray = [...testMarkers];
+      // checkArray.filter((elt) => {
+      //   return elt.userId !== user_Id;
+      // });
+      const newAdd = Arr.push(newUserOnMap);
+      console.log(Arr, 'newAdd');
+      setTestMarkers(Arr);
+
+      const uniqueMarker = Array.from(new Set(Arr.map((a) => a.userId))).map(
+        (id) => {
+          return Arr.find((a) => a.userId === id);
+        }
+      );
+
+      setNewMarker(uniqueMarker);
+      // setNewMarker(testTest);
+      console.log(uniqueMarker, 'uniqueMarker');
     });
     return () => {
       socket.off('connection');
@@ -370,8 +382,8 @@ const Map = () => {
                   />
                 </div>
               ))}
-            {testMarkers.length > 0 &&
-              testMarkers.map((newMarker, index) => (
+            {newMarker.length > 0 &&
+              newMarker.map((newMarker, index) => (
                 <div className='marker-wrapper'>
                   <Marker
                     key={index}
@@ -470,7 +482,7 @@ const Map = () => {
             <h2>{selected.title}</h2>
             <h3>{selected.address}</h3>
             <h4>{selected.activeUsers.length} Users Checked In </h4>
-            <h4>blablabla....descriptopn Text </h4>
+            <h4>{selected.description}</h4>
             <h4>possible sports </h4>
             <button>Route</button>
             <button>Check In</button>
