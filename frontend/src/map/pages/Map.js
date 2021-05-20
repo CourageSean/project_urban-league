@@ -526,14 +526,14 @@ const Map = () => {
         /***************************************************/
         <>
           <div className='location-info'>
-            <h1
+            <h2
               style={{ color: 'white', cursor: 'pointer' }}
               onClick={() => {
                 setShowDetails(false);
               }}
             >
               X
-            </h1>
+            </h2>
             <img src={selected.image} alt='' />
             <div className='location-info-content'>
               <h2>{selected.title}</h2>
