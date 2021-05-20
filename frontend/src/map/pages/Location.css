@@ -41,10 +41,13 @@
   border: 1px solid #3fcefe;
   padding: 0.8rem 1.5rem;
   width: 40%;
+  font-size: inherit;
+  text-transform: uppercase;
 }
 
 .checkin-btn:hover {
   cursor: pointer;
+  background: #30c073;
 }
 
 .mt-mb {

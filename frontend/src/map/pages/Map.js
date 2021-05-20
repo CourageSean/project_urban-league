@@ -537,19 +537,18 @@ const Map = () => {
             <img src={selected.image} alt='' />
             <div className='location-info-content'>
               <h2>{selected.title}</h2>
-              <h4>{selected.description}</h4>
-              <h3>@{selected.address}</h3>
-              <h4>{selected.activeUsers.length} Users Checked In </h4>
+              <p>{selected.description}</p>
+              <p>@{selected.address}</p>
+              <p>{selected.activeUsers.length} Users Checked In </p>
               {selected.activeUsers.map((elt) => {
                 return (
                   <div>
                     {loadedUsers.users.find((user) => elt === user._id).name}
-                    <h4>{elt}</h4>
+                    <p>{elt}</p>
                   </div>
                 );
               })}
-              
-              <h4>possible sports </h4>
+              <p>possible sports </p>
               <div>
                 <h1>Checking In</h1>
                 <label htmlFor='time' name=''>
