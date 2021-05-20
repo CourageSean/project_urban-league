@@ -314,10 +314,8 @@ const Map = () => {
     console.log(checkInTime);
     try {
       const { data } = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/places/staticplaces/${
-          selected._id
-        }/?userId=${
-          JSON.parse(localStorage.userData).userId
+        `${process.env.REACT_APP_BACKEND_URL}/places/staticplaces/${selected._id
+        }/?userId=${JSON.parse(localStorage.userData).userId
         }&time=${checkInTime}`
       );
       console.log(selected._id, 'selected place id');
@@ -336,22 +334,22 @@ const Map = () => {
       )}
       {isLoading === false}
       <>
-      <div className="test"></div>
-      <div className='map-container'>
-        {/* <Search panTo={panTo} /> */}
+        <div className="test"></div>
+        <div className='map-container'>
+          {/* <Search panTo={panTo} /> */}
 
-        {markers && (
-          <GoogleMap
-            id='map'
-            mapContainerStyle={mapContainerStyle}
-            zoom={13}
-            center={center}
-            options={options}
-            // onClick={onMapClick}
-            onLoad={onMapLoad}
+          {markers && (
+            <GoogleMap
+              id='map'
+              mapContainerStyle={mapContainerStyle}
+              zoom={13}
+              center={center}
+              options={options}
+              // onClick={onMapClick}
+              onLoad={onMapLoad}
             // tilt={45}
-          >
-            {/* {loadedUsers &&
+            >
+              {/* {loadedUsers &&
               markers.map((marker, index) => (
                 <div className='marker-wrapper'>
                   <h1 className='haha'>jo</h1>
@@ -380,148 +378,148 @@ const Map = () => {
                   )}
                 </div>
               ))} */}
-            {places &&
-              places.map((elt, index) => (
-                <div className='marker-wrapper'>
-                  {console.log(elt, 'here')}
-                  <Marker
-                    key={index}
-                    position={{
-                      lat: elt.coordinates.lat,
-                      lng: elt.coordinates.lng,
-                    }}
-                    // animation={{ Animation: BOUNCE }}
-                    onClick={() => {
-                      //   setShortInfo(marker);
-                      setSelected(elt);
-                      setSelectedPlace('More info about place');
-                      console.log(elt);
-                    }}
-                    icon={{
-                      url: `/place-marker.png`,
-                      origin: new window.google.maps.Point(0, 0),
-                      anchor: new window.google.maps.Point(15, 15),
-                      scaledSize: new window.google.maps.Size(50, 50),
-                      labelOrigin: new window.google.maps.Point(33, 0),
-                    }}
-                    label={{
-                      text: elt.activeUsers.length.toString(),
-                      color: 'black',
-                      fontWeight: 'bold',
-                      fontSize: '20px',
-                    }}
-                  />
-                </div>
-              ))}
-            {newMarker.length > 0 &&
-              newMarker.map((newMarker, index) => (
-                <div className='marker-wrapper'>
-                  {console.log(
-                    loadedUsers.users.find(
-                      (elt) => newMarker.userId === elt._id
-                    ),
-                    'loaded users'
-                  )}
-
-                  <Marker
-                    key={index}
-                    position={{
-                      lat: newMarker.lat,
-                      lng: newMarker.lng,
-                    }}
-                    label={{
-                      text: loadedUsers.users.find(
+              {places &&
+                places.map((elt, index) => (
+                  <div className='marker-wrapper'>
+                    {console.log(elt, 'here')}
+                    <Marker
+                      key={index}
+                      position={{
+                        lat: elt.coordinates.lat,
+                        lng: elt.coordinates.lng,
+                      }}
+                      // animation={{ Animation: BOUNCE }}
+                      onClick={() => {
+                        //   setShortInfo(marker);
+                        setSelected(elt);
+                        setSelectedPlace('More info about place');
+                        console.log(elt);
+                      }}
+                      icon={{
+                        url: `/place-marker.png`,
+                        origin: new window.google.maps.Point(0, 0),
+                        anchor: new window.google.maps.Point(15, 15),
+                        scaledSize: new window.google.maps.Size(50, 50),
+                        labelOrigin: new window.google.maps.Point(33, 0),
+                      }}
+                      label={{
+                        text: elt.activeUsers.length.toString(),
+                        color: 'black',
+                        fontWeight: 'bold',
+                        fontSize: '20px',
+                      }}
+                    />
+                  </div>
+                ))}
+              {newMarker.length > 0 &&
+                newMarker.map((newMarker, index) => (
+                  <div className='marker-wrapper'>
+                    {console.log(
+                      loadedUsers.users.find(
                         (elt) => newMarker.userId === elt._id
-                      ).name,
-                      color: 'crimson',
-                      fontWeight: 'bold',
-                      fontSize: '22px',
-                    }}
-                    icon={{
-                      url: '/dummi.png',
-                      anchor: new window.google.maps.Point(53, 53),
-                      labelOrigin: new window.google.maps.Point(33, -10),
-                      scaledSize: new window.google.maps.Size(50, 50),
-                      origin: new window.google.maps.Point(0, 0),
-                    }}
-                  />
-                </div>
-              ))}
+                      ),
+                      'loaded users'
+                    )}
 
-            {ownLocation && (
-              <Marker
-                position={{
-                  lat: ownLocation[0],
-                  lng: ownLocation[1],
-                }}
-                icon={{
-                  url: `/blue-dot.png`,
-                  origin: new window.google.maps.Point(0, 0),
-                  anchor: new window.google.maps.Point(15, 15),
-                  scaledSize: new window.google.maps.Size(50, 50),
-                }}
-              ></Marker>
-            )}
-            {!response && (
-              <DirectionsService
-                options={DirectionsServiceOption}
-                callback={directionsCallback}
-              />
-            )}
-            {response && (
-              <DirectionsRenderer
-                options={{
-                  directions: response,
-                }}
-              />
-            )}
+                    <Marker
+                      key={index}
+                      position={{
+                        lat: newMarker.lat,
+                        lng: newMarker.lng,
+                      }}
+                      label={{
+                        text: loadedUsers.users.find(
+                          (elt) => newMarker.userId === elt._id
+                        ).name,
+                        color: 'crimson',
+                        fontWeight: 'bold',
+                        fontSize: '22px',
+                      }}
+                      icon={{
+                        url: '/dummi.png',
+                        anchor: new window.google.maps.Point(53, 53),
+                        labelOrigin: new window.google.maps.Point(33, -10),
+                        scaledSize: new window.google.maps.Size(50, 50),
+                        origin: new window.google.maps.Point(0, 0),
+                      }}
+                    />
+                  </div>
+                ))}
 
-            {selected ? (
-              <InfoWindow
-                position={{
-                  lat: selected.coordinates.lat,
-                  lng: selected.coordinates.lng,
-                }}
-                onCloseClick={() => {
-                  setSelected(null);
-                  setSelectedPlace(null);
-                  setShowDetails(false);
-                }}
-              >
-                <div>
-                  {selected && !selectedPlace && <h2>Text</h2>}
-                  {selectedPlace && <h2>{selected.title}</h2>}
-                  {selectedPlace && <h4>Rate 3.5/5</h4>}
-                  {selectedPlace && <h4>{selected.address}</h4>}
+              {ownLocation && (
+                <Marker
+                  position={{
+                    lat: ownLocation[0],
+                    lng: ownLocation[1],
+                  }}
+                  icon={{
+                    url: `/blue-dot.png`,
+                    origin: new window.google.maps.Point(0, 0),
+                    anchor: new window.google.maps.Point(15, 15),
+                    scaledSize: new window.google.maps.Size(50, 50),
+                  }}
+                ></Marker>
+              )}
+              {!response && (
+                <DirectionsService
+                  options={DirectionsServiceOption}
+                  callback={directionsCallback}
+                />
+              )}
+              {response && (
+                <DirectionsRenderer
+                  options={{
+                    directions: response,
+                  }}
+                />
+              )}
 
-                  {selectedPlace && (
+              {selected ? (
+                <InfoWindow
+                  position={{
+                    lat: selected.coordinates.lat,
+                    lng: selected.coordinates.lng,
+                  }}
+                  onCloseClick={() => {
+                    setSelected(null);
+                    setSelectedPlace(null);
+                    setShowDetails(false);
+                  }}
+                >
+                  <div>
+                    {selected && !selectedPlace && <h2>Text</h2>}
+                    {selectedPlace && <h2>{selected.title}</h2>}
+                    {selectedPlace && <h4>Rate 3.5/5</h4>}
+                    {selectedPlace && <h4>{selected.address}</h4>}
+
+                    {selectedPlace && (
+                      <button
+                        onClick={() => {
+                          setShowDetails(true);
+
+                          console.log(selected);
+                        }}
+                      >
+                        More Info & Check In
+                      </button>
+                    )}
                     <button
                       onClick={() => {
-                        setShowDetails(true);
-
-                        console.log(selected);
+                        calculateRoute({
+                          lat: selected.coordinates.lat,
+                          lng: selected.coordinates.lng,
+                        });
                       }}
                     >
-                      More Info & Check In
-                    </button>
-                  )}
-                  <button
-                    onClick={() => {
-                      calculateRoute({
-                        lat: selected.coordinates.lat,
-                        lng: selected.coordinates.lng,
-                      });
-                    }}
-                  >
-                    {' '}
+                      {' '}
                     Navigate
                   </button>
-                </div>
-              </InfoWindow>
-            ) : null}
-          </GoogleMap>
-        )}
-      </div>
+                  </div>
+                </InfoWindow>
+              ) : null}
+            </GoogleMap>
+          )}
+        </div>
       </>
 
       {selected && showDetails && (
@@ -537,47 +535,45 @@ const Map = () => {
               X
             </h1>
             <img src={selected.image} alt='' />
-            <h2>{selected.title}</h2>
-            <h3>{selected.address}</h3>
-            <h4>{selected.activeUsers.length} Users Checked In </h4>
-            {selected.activeUsers.map((elt) => {
-              return (
-                <div>
-                  {loadedUsers.users.find((user) => elt === user._id).name}
-                  <h4>{elt}</h4>
-                </div>
-              );
-            })}
-            <h4>{selected.description}</h4>
-            <h4>possible sports </h4>
-            <div className='btn-wrapper'>
-              <button className='route-btn'>Route</button>
-              <button className='checkin-btn'>Check In</button>
-            </div>
-            <div>
-              <h1>Checking In</h1>
-              <label htmlFor='time' name=''>
-                30min
+            <div className='location-info-content'>
+              <h2>{selected.title}</h2>
+              <h3>{selected.address}</h3>
+              <h4>{selected.activeUsers.length} Users Checked In </h4>
+              {selected.activeUsers.map((elt) => {
+                return (
+                  <div>
+                    {loadedUsers.users.find((user) => elt === user._id).name}
+                    <h4>{elt}</h4>
+                  </div>
+                );
+              })}
+              <h4>{selected.description}</h4>
+              <h4>possible sports </h4>
+              <div>
+                <h1>Checking In</h1>
+                <label htmlFor='time' name=''>
+                  30min
               </label>
-              <input
-                type='radio'
-                name='time'
-                id='thirty'
-                onChange={() => {
-                  setCheckInTime(60000);
-                }}
-              />
-              <label htmlFor='time'>60min</label>
-              <input
-                type='radio'
-                name='time'
-                id='sixty'
-                onChange={() => {
-                  setCheckInTime(120000);
-                }}
-              />
-              <br />
-              <button onClick={checkIn}>check in</button>
+                <input
+                  type='radio'
+                  name='time'
+                  id='thirty'
+                  onChange={() => {
+                    setCheckInTime(60000);
+                  }}
+                />
+                <label htmlFor='time'>60min</label>
+                <input
+                  type='radio'
+                  name='time'
+                  id='sixty'
+                  onChange={() => {
+                    setCheckInTime(120000);
+                  }}
+                />
+                <br />
+                <button className='checkin-btn mt-mb' onClick={checkIn}>check in</button>
+              </div>
             </div>
           </div>
         </>
