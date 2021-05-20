@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React from 'react';
 
 import './GetStarted.css';
 import Card from '../../shared/components/UIElements/Card';
@@ -10,7 +10,7 @@ import { useHttpClient } from '../../shared/hooks/http-hook';
 import './Auth.css';
 
 const GetStarted = () => {
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const { isLoading } = useHttpClient();
   return (
     <React.Fragment>
       <Card className="authentication">

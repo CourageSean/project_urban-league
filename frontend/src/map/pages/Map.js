@@ -1,19 +1,15 @@
 import {
   GoogleMap,
-  useLoadScript,
   Marker,
   InfoWindow,
   DirectionsService,
   DirectionsRenderer,
 } from '@react-google-maps/api';
-import Location from './Location.css';
-import React, { Component, useEffect, useState } from 'react';
+import './Location.css';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 // import mapStyles from '../components/mapStyles';
 import io from 'socket.io-client';
-import UsersList from '../components/UsersList';
-import Modal from '../../shared/components/UIElements/Modal';
-import Button from '../../shared/components/FormElements/Button';
 import ErrorModal from '../../shared/components/UIElements/ErrorModal';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 import { useHttpClient } from '../../shared/hooks/http-hook';
@@ -28,7 +24,7 @@ import { useHttpClient } from '../../shared/hooks/http-hook';
 const socket = io('https://urban-league.herokuapp.com/');
 //needed variables
 
-const libraries = ['places'];
+//const libraries = ['places'];
 const mapContainerStyle = {
   position: 'absolute',
   top: '64px',
