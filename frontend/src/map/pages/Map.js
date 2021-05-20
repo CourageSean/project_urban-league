@@ -302,11 +302,11 @@ const Map = () => {
               data.coords.longitude,
               JSON.parse(localStorage.userData).userId,
             ]);
-          }, 20000);
+          }, 5000);
         },
         (error) => console.log(error)
       );
-    }, 40000);
+    }, 10000);
   }
 
   // Check In
@@ -314,14 +314,26 @@ const Map = () => {
     console.log(checkInTime);
     try {
       const { data } = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/places/staticplaces/${
-          selected._id
-        }/?userId=${
-          JSON.parse(localStorage.userData).userId
+        `${process.env.REACT_APP_BACKEND_URL}/places/staticplaces/${selected._id
+        }/?userId=${JSON.parse(localStorage.userData).userId
         }&time=${checkInTime}`
       );
       // window.location.href = 'http://localhost:3000';
       console.log(selected._id, 'selected place id');
+      // console.log(data, 'single place checkin sent');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const addFavMap = async () => {
+    try {
+      const { data } = await axios.post(
+        `https://urban-league.herokuapp.com/api/places/?creator=${JSON.parse(localStorage.userData).userId
+        }&address=${selected.address}&description=${selected.description
+        }&location=${selected.coordinates}&title=${selected.title}&image=${selected.image
+        }`
+      );
+      // window.location.href = 'http://localhost:3000';
       // console.log(data, 'single place checkin sent');
     } catch (error) {
       console.log(error);
@@ -350,7 +362,7 @@ const Map = () => {
               options={options}
               // onClick={onMapClick}
               onLoad={onMapLoad}
-              // tilt={45}
+            // tilt={45}
             >
               {/* {loadedUsers &&
               markers.map((marker, index) => (
@@ -398,13 +410,13 @@ const Map = () => {
                         setSelectedPlace('More info about place');
                         console.log(elt);
                       }}
-                      icon={{
-                        url: `/place-marker.png`,
-                        origin: new window.google.maps.Point(0, 0),
-                        anchor: new window.google.maps.Point(15, 15),
-                        scaledSize: new window.google.maps.Size(50, 50),
-                        labelOrigin: new window.google.maps.Point(33, 0),
-                      }}
+                      // icon={{
+                      //   url: `/place-marker.png`,
+                      //   origin: new window.google.maps.Point(0, 0),
+                      //   anchor: new window.google.maps.Point(15, 15),
+                      //   scaledSize: new window.google.maps.Size(50, 50),
+                      //   labelOrigin: new window.google.maps.Point(33, 0),
+                      // }}
                       label={{
                         text: elt.activeUsers.length.toString(),
                         color: 'black',
@@ -439,10 +451,10 @@ const Map = () => {
                         fontSize: '22px',
                       }}
                       icon={{
-                        url: '/dummi.png',
+                        url: '/green.svg',
                         anchor: new window.google.maps.Point(53, 53),
                         labelOrigin: new window.google.maps.Point(33, -10),
-                        scaledSize: new window.google.maps.Size(50, 50),
+                        scaledSize: new window.google.maps.Size(30, 30),
                         origin: new window.google.maps.Point(0, 0),
                       }}
                     />
@@ -456,10 +468,10 @@ const Map = () => {
                     lng: ownLocation[1],
                   }}
                   icon={{
-                    url: `/blue-dot.png`,
+                    url: `/blue_sphere.svg`,
                     origin: new window.google.maps.Point(0, 0),
                     anchor: new window.google.maps.Point(15, 15),
-                    scaledSize: new window.google.maps.Size(50, 50),
+                    scaledSize: new window.google.maps.Size(30, 30),
                   }}
                 ></Marker>
               )}
@@ -506,7 +518,14 @@ const Map = () => {
                         More Info & Check In
                       </button>
                     )}
-                    <button onClick={console.log(selected)}>+ favourite</button>
+                    <button
+                      onClick={() => {
+                        console.log(selected);
+                        addFavMap();
+                      }}
+                    >
+                      + favourite
+                    </button>
                     <button
                       onClick={() => {
                         calculateRoute({
