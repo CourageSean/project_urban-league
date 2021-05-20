@@ -1,3 +1,7 @@
+.modal__footer > .button {
+  margin-bottom: 1rem;
+}
+
 .button {
   font: inherit;
   padding: 0.8rem 1.5rem;
@@ -16,31 +20,32 @@
 }
 .button:hover,
 .button:active {
-  background: #3BED8D;
+  background: #30c073;
   border-color: #3BED8D;
 }
 .button--inverse {
-  background: #3FCEFE;
-  color: #F6FBF1;
+  background: #3BED8D;
+  color: #fff;
 }
 .button--inverse:hover,
 .button--inverse:active {
   color: white;
-  background: #3FCEFE;
+  background: #30c073;
+  border-color: #3FCEFE;
 }
 .button--danger {
-  background:#dc143c;
-  border-color: #DC143C;
+  background:#3FCEFE;
+  border-color: #3BED8D;
 }
 .button--danger:hover,
 .button--danger:active {
-  background: #7428A1;
-  border-color: #7428A1;
+  background: #34aad1;
+  border-color: #3FCEFE;
 }
 .button:disabled,
 .button:hover:disabled,
 .button:active:disabled {
-  background: #3BED8D;
+  background: #30c073;
   color: #F6F1FB;
   border:none;
   outline: none;

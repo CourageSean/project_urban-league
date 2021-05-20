@@ -14,7 +14,7 @@ const GetStarted = () => {
     <React.Fragment>
       <Card className="authentication">
         {isLoading && <LoadingSpinner asOverlay />}
-        <h1>Find the best spot in the city.</h1>
+        <h1>FIND THE BEST SPOT IN THE CITY.</h1>
         <div className="">
           <Button to={`/auth`}>GET STARTED</Button>
         </div>

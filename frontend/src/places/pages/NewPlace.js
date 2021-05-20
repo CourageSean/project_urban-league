@@ -70,6 +70,7 @@ const NewPlace = () => {
         <Input
           id='title'
           element='input'
+          placeholder='e.g. basketball court'
           type='text'
           label='Title'
           validators={[VALIDATOR_REQUIRE()]}
@@ -79,6 +80,7 @@ const NewPlace = () => {
         <Input
           id='description'
           element='textarea'
+          placeholder='Great run but there can be long waits, so come ready to play'
           label='Description'
           validators={[VALIDATOR_MINLENGTH(5)]}
           errorText='Please enter a valid description (at least 5 characters).'
@@ -87,6 +89,7 @@ const NewPlace = () => {
         <Input
           id='address'
           element='input'
+          placeholder='Friedrichstraße 145, 40217 Düsseldorf'
           label='Address'
           validators={[VALIDATOR_REQUIRE()]}
           errorText='Please enter a valid address.'
