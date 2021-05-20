@@ -11,10 +11,11 @@
   border:1px solid #F6F1FB;
 }
 .modal__header {
+  border-bottom: 1px solid #F6F1FB;;
   width: 100%;
   padding: 1rem 0.5rem;
-  background: #DC143C;
-  color: #FBFBFB;
+  background: #222222;
+  color: #fff;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
 }

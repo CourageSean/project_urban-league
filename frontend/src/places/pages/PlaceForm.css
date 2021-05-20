@@ -1,11 +1,11 @@
 .place-form {
   position: relative;
   list-style: none;
-  margin: 0 auto;
+  margin: 10% auto;
   padding: 1rem;
   width: 90%;
   max-width: 40rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
   border-radius: 6px;
   background:#222222;
   color: #F6F1FB;
@@ -13,7 +13,7 @@
 }
 #description:focus{
   background: #FBFBFB;
-  color:#808080
+  
 }
 #description::placeholder{
   color: #808080;

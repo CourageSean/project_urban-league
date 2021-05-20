@@ -106,6 +106,7 @@ const UpdatePlace = () => {
           <Input
             id='title'
             element='input'
+            placeholder='blabla'
             type='text'
             label='Title'
             validators={[VALIDATOR_REQUIRE()]}
@@ -116,6 +117,7 @@ const UpdatePlace = () => {
           />
           <Input
             id='description'
+            placeholder='blabla'
             element='textarea'
             label='Description'
             validators={[VALIDATOR_MINLENGTH(5)]}
