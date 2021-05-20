@@ -302,12 +302,32 @@ const Map = () => {
               data.coords.longitude,
               JSON.parse(localStorage.userData).userId,
             ]);
-          }, 6000);
+          }, 20000);
         },
         (error) => console.log(error)
       );
-    }, 12000);
+    }, 40000);
   }
+
+  //Add favourite from Map
+  const addFavMap = async () => {
+    try {
+      const { data } = await axios.post(
+        `https://urban-league.herokuapp.com/api/places/?creator=${
+          JSON.parse(localStorage.userData).userId
+        }&address=${selected.address}&description=${
+          selected.description
+        }&location=${selected.coordinates}&title=${selected.title}&image=${
+          selected.image
+        }`
+      );
+      // window.location.href = 'http://localhost:3000';
+
+      // console.log(data, 'single place checkin sent');
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // Check In
   const checkIn = async () => {
@@ -508,6 +528,14 @@ const Map = () => {
                     )}
                     <button
                       onClick={() => {
+                        console.log(selected);
+                        addFavMap();
+                      }}
+                    >
+                      + favourite
+                    </button>
+                    <button
+                      onClick={() => {
                         calculateRoute({
                           lat: selected.coordinates.lat,
                           lng: selected.coordinates.lng,
@@ -577,6 +605,19 @@ const Map = () => {
                 <br />
                 <button className='checkin-btn mt-mb' onClick={checkIn}>
                   check in
+                </button>
+                <br />
+                <button
+                  className='route-btn'
+                  onClick={() => {
+                    calculateRoute({
+                      lat: selected.coordinates.lat,
+                      lng: selected.coordinates.lng,
+                    });
+                    setShowDetails(null);
+                  }}
+                >
+                  Route
                 </button>
               </div>
             </div>

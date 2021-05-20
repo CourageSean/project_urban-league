@@ -58,3 +58,20 @@
   max-width: 80%;
   margin: 1rem auto;
 }
+
+.route-btn {
+  color: #fbf1f6;
+  background: #3fcefe;
+  border-radius: 20px;
+  outline: none;
+  border: 1px solid #3bed8d;
+  padding: 0.8rem 1.5rem;
+  width: 60%;
+  text-transform: uppercase;
+  font-size: inherit;
+}
+
+.route-btn:hover {
+  cursor: pointer;
+  background: #1995fb;
+}
