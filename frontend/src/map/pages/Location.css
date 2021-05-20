@@ -25,6 +25,9 @@
   align-items: center;
 }
 .route-btn {
+  font-size: inherit;
+  text-transform: uppercase;
+  margin-top: 1rem;
   color: #fbf1f6;
   background: #3fcefe;
   border-radius: 20px;
@@ -33,7 +36,12 @@
   padding: 0.8rem 1.5rem;
   width: 40%;
 }
+.route-btn:hover {
+  cursor: pointer;
+  background: #36add4;
+}
 .checkin-btn {
+  margin-top: 1rem;
   color: #fbf1f6;
   background: #3bed8d;
   border-radius: 20px;

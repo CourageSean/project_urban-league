@@ -595,7 +595,7 @@ const Map = () => {
                   }}
                 />
                 <br />
-                <button className='checkin-btn mt-mb' onClick={checkIn}>
+                <button className='checkin-btn' onClick={checkIn}>
                   check in
                 </button>
                 <br />
