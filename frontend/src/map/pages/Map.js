@@ -537,7 +537,8 @@ const Map = () => {
             <img src={selected.image} alt='' />
             <div className='location-info-content'>
               <h2>{selected.title}</h2>
-              <h3>{selected.address}</h3>
+              <h4>{selected.description}</h4>
+              <h3>@{selected.address}</h3>
               <h4>{selected.activeUsers.length} Users Checked In </h4>
               {selected.activeUsers.map((elt) => {
                 return (
@@ -547,7 +548,7 @@ const Map = () => {
                   </div>
                 );
               })}
-              <h4>{selected.description}</h4>
+              
               <h4>possible sports </h4>
               <div>
                 <h1>Checking In</h1>

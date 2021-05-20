@@ -43,6 +43,10 @@
   width: 40%;
 }
 
+.checkin-btn:hover {
+  cursor: pointer;
+}
+
 .mt-mb {
   margin: 20px 0 5%;
 }
