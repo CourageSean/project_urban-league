@@ -44,49 +44,28 @@ const center = {
 };
 
 const Map = () => {
-  const Modal = ({ handleClose, show, children }) => {
-    const showHideClassName = show
-      ? 'modal display-block'
-      : 'modal display-none';
-
-    return (
-      <div className={showHideClassName}>
-        <section className='modal-main'>
-          {children}
-          <button onClick={handleClose}>Close</button>
-        </section>
-      </div>
-    );
-  };
-
-  const { error, sendRequest, clearError } = useHttpClient();
+  const { error, clearError } = useHttpClient();
   const [isLoading, setIsLoading] = useState();
   const [loadedUsers, setLoadedUsers] = useState();
   const [markers, setMarkers] = useState([]);
   const [selected, setSelected] = useState(null);
   const [places, setPlaces] = useState(null);
-  const [singlePlace, setSinglePlace] = useState(null);
+  //const [singlePlace, setSinglePlace] = useState(null);
   const [selectedPlace, setSelectedPlace] = useState(null);
-  const [shortInfo, setShortInfo] = useState(null);
+  //const [shortInfo, setShortInfo] = useState(null);
   const [origin, setOrigin] = useState(null);
-  const [testArray, setTestArray] = useState([
-    { liveLocation: { lat: 50.915165747607714, lng: 6.10337325822752 } },
-    { liveLocation: { lat: 50.917165747607714, lng: 6.18337325822752 } },
-    { liveLocation: { lat: 50.93089720514569, lng: 6.104956327075176 } },
-    { liveLocation: { lat: 50.915165747607714, lng: 6.10777325822752 } },
-  ]);
   const [destination, setDestination] = useState(null);
   const [showDetails, setShowDetails] = useState(null);
   const [response, setResponse] = useState(null);
-  const [isConnected, setIsConnected] = useState(socket.connected);
-  const [lastMessage, setLastMessage] = useState(null);
-  const [testMarkers, setTestMarkers] = useState([]);
+  const [setIsConnected] = useState(socket.connected);
+  const [setLastMessage] = useState(null);
+  const [setTestMarkers] = useState([]);
   const [ownLocation, setOwnLocation] = useState(null);
   const [newMarker, setNewMarker] = useState([]);
   const [checkInTime, setCheckInTime] = useState('');
   const Arr = [];
   // User Posiotion State
-  const [user_1Position, setUser_1Position] = useState();
+  //const [user_1Position, setUser_1Position] = useState();
   // On Mapload
 
   const panTo = React.useCallback(({ lat, lng }) => {
@@ -157,7 +136,7 @@ const Map = () => {
     // }, [sendRequest]);
     getUsersLocation();
     // getPlaces();
-  }, []);
+  }, [panTo, watchOwnPosition, setTestMarkers]);
   //direction callback
   const directionsCallback = (response) => {
     // console.log(response);
@@ -220,18 +199,14 @@ const Map = () => {
     });
     socket.on('position_room', (data) => {
       setLastMessage(data);
-      const newUserOnMap = {
-        lat: data[0],
-        lng: data[1],
-        userId: data[2],
-      };
+   
       const user_Id = data[2];
       console.log(user_Id, 'userID');
       // const checkArray = [...testMarkers];
       // checkArray.filter((elt) => {
       //   return elt.userId !== user_Id;
       // });
-      const newAdd = Arr.push(newUserOnMap);
+      // const newAdd = Arr.push(newUserOnMap);
       // console.log(Arr, 'newAdd');
       setTestMarkers(Arr);
 
@@ -272,17 +247,7 @@ const Map = () => {
   // };
 
   // Get Details
-  const getSinglePlace = async () => {
-    try {
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/places/609fa79b54e4b187699b9403`
-      );
-
-      console.log(data, 'single place');
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  
 
   //Watch Own Position
   function watchOwnPosition() {
@@ -318,7 +283,7 @@ const Map = () => {
       );
       // window.location.href = 'http://localhost:3000';
       console.log(selected._id, 'selected place id');
-      // console.log(data, 'single place checkin sent');
+      console.log(data, 'single place checkin sent');
     } catch (error) {
       console.log(error);
     }
@@ -335,7 +300,7 @@ const Map = () => {
       <React.Fragment>
         <div className='test'></div>
         <div className='map-container'>
-          {/* <Search panTo={panTo} /> */}
+          
 
           {markers && (
             <GoogleMap
