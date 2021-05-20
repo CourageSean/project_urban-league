@@ -1,5 +1,5 @@
 const fs = require('fs');
-
+const cors = require('cors');
 const { validationResult } = require('express-validator');
 const mongoose = require('mongoose');
 
@@ -92,15 +92,15 @@ const updateStaticPlacesActiveUsers = async (req, res, next) => {
                 },
                 function (err, result) {
                   if (err) {
-                    res.send(err);
+                    res.redirect(err);
                   } else {
                   }
                 }
               );
             });
           }, Number(time));
-          res.send(result);
         }
+        res.send('http://localhost:3000');
       }
     );
   });

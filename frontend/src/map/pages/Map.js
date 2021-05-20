@@ -161,13 +161,13 @@ const Map = () => {
   }, []);
   //direction callback
   const directionsCallback = (response) => {
-    console.log(response);
+    // console.log(response);
     setResponse(response);
     if (response) {
       if (response.status === 'OK') {
         setResponse(response);
       } else {
-        console.log('response: ', response);
+        // console.log('response: ', response);
       }
     }
   };
@@ -183,19 +183,19 @@ const Map = () => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         setOrigin({
-          lat: 51.24321,
-          lng: 6.78724,
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
         });
         setDestination(destinations);
-        console.log(
-          'from:',
-          {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          },
-          'to:',
-          destinations
-        );
+        // console.log(
+        //   'from:',
+        //   {
+        //     lat: position.coords.latitude,
+        //     lng: position.coords.longitude,
+        //   },
+        //   'to:',
+        //   destinations
+        // );
       },
       () => {
         // setOrigin(null);
@@ -233,7 +233,7 @@ const Map = () => {
       //   return elt.userId !== user_Id;
       // });
       const newAdd = Arr.push(newUserOnMap);
-      console.log(Arr, 'newAdd');
+      // console.log(Arr, 'newAdd');
       setTestMarkers(Arr);
 
       const uniqueMarker = Array.from(new Set(Arr.map((a) => a.userId))).map(
@@ -244,7 +244,7 @@ const Map = () => {
 
       setNewMarker(uniqueMarker);
       // setNewMarker(testTest);
-      console.log(uniqueMarker, 'uniqueMarker');
+      // console.log(uniqueMarker, 'uniqueMarker');
     });
     return () => {
       socket.off('connection');
@@ -291,7 +291,7 @@ const Map = () => {
       navigator.geolocation.getCurrentPosition(
         (data) => {
           setOwnLocation([data.coords.latitude, data.coords.longitude]);
-          console.log(data, 'own position');
+          // console.log(data, 'own position');
           setTimeout(() => {
             setOwnLocation([data.coords.latitude, data.coords.longitude]);
             sendMessage([
@@ -299,11 +299,11 @@ const Map = () => {
               data.coords.longitude,
               JSON.parse(localStorage.userData).userId,
             ]);
-          }, 20000);
+          }, 6000);
         },
         (error) => console.log(error)
       );
-    }, 40000);
+    }, 12000);
   }
 
   // Check In
@@ -317,6 +317,7 @@ const Map = () => {
           JSON.parse(localStorage.userData).userId
         }&time=${checkInTime}`
       );
+      // window.location.href = 'http://localhost:3000';
       console.log(selected._id, 'selected place id');
       // console.log(data, 'single place checkin sent');
     } catch (error) {
@@ -378,7 +379,7 @@ const Map = () => {
             {places &&
               places.map((elt, index) => (
                 <div className='marker-wrapper'>
-                  {console.log(elt, 'here')}
+                  {/* {console.log(elt, 'here')} */}
                   <Marker
                     key={index}
                     position={{
@@ -390,7 +391,7 @@ const Map = () => {
                       //   setShortInfo(marker);
                       setSelected(elt);
                       setSelectedPlace('More info about place');
-                      console.log(elt);
+                      // console.log(elt);
                     }}
                     icon={{
                       url: `/place-marker.png`,
@@ -411,13 +412,6 @@ const Map = () => {
             {newMarker.length > 0 &&
               newMarker.map((newMarker, index) => (
                 <div className='marker-wrapper'>
-                  {console.log(
-                    loadedUsers.users.find(
-                      (elt) => newMarker.userId === elt._id
-                    ),
-                    'loaded users'
-                  )}
-
                   <Marker
                     key={index}
                     position={{
@@ -537,11 +531,14 @@ const Map = () => {
             {selected.activeUsers.map((elt) => {
               return (
                 <div>
-                  {loadedUsers.users.find((user) => elt === user._id).name}
-                  <h4>{elt}</h4>
+                  <h4>
+                    {loadedUsers.users.find((user) => elt === user._id).name}
+                  </h4>
+                  <h5>ID:{elt}</h5>
                 </div>
               );
             })}
+            <button>+o favourite places</button>
             <h4>{selected.description}</h4>
             <h4>possible sports </h4>
             <div className='btn-wrapper'>
