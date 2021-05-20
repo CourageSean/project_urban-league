@@ -30,8 +30,11 @@ const socket = io('https://urban-league.herokuapp.com/');
 
 const libraries = ['places'];
 const mapContainerStyle = {
-  height: '85vh',
-  width: '90vw',
+  position: "absolute",
+  top: "64px",
+  left: "0px",
+  right: "0px",
+  bottom: "0px"
 };
 const options = {
   // styles: mapStyles,

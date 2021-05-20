@@ -40,7 +40,6 @@ const App = () => {
           <UpdateProfile />
         </Route>
         <Route path='/livemap' exact>
-          <h1>livemap</h1>
           <Map />
         </Route>
         <Route path='/places/new' exact>
