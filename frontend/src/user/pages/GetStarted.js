@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 
+import './GetStarted.css';
 import Card from '../../shared/components/UIElements/Card';
 import Button from '../../shared/components/FormElements/Button';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
@@ -15,7 +16,8 @@ const GetStarted = () => {
       <Card className="authentication">
         {isLoading && <LoadingSpinner asOverlay />}
         <h1>FIND THE BEST SPOT IN THE CITY.</h1>
-        <div className="">
+        <div className="space"></div>
+        <div>
           <Button to={`/auth`}>GET STARTED</Button>
         </div>
       </Card>
