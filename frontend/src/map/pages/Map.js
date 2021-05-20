@@ -335,6 +335,8 @@ const Map = () => {
         </div>
       )}
       {isLoading === false}
+      <>
+      <div className="test"></div>
       <div className='map-container'>
         {/* <Search panTo={panTo} /> */}
 
@@ -520,6 +522,7 @@ const Map = () => {
           </GoogleMap>
         )}
       </div>
+      </>
 
       {selected && showDetails && (
         /***************************************************/
