@@ -4,7 +4,6 @@
   position: fixed;
   overflow-y: scroll;
   overflow-x: hidden;
-
   margin: 0 auto;
   text-align: center;
   padding: 1rem auto;
@@ -31,7 +30,10 @@
   outline: none;
   border: 1px solid #3bed8d;
   padding: 0.8rem 1.5rem;
-  width: 40%;
+  width: 60%;
+  text-transform: uppercase;
+  font-size: inherit;
+  margin-top: 1rem;
 }
 .checkin-btn {
   color: #fbf1f6;
@@ -40,38 +42,77 @@
   outline: none;
   border: 1px solid #3fcefe;
   padding: 0.8rem 1.5rem;
-  width: 40%;
+  width: 60%;
   font-size: inherit;
   text-transform: uppercase;
+  margin-top: 1rem;
 }
-
 .checkin-btn:hover {
   cursor: pointer;
   background: #30c073;
 }
-
-.mt-mb {
-  margin: 20px 0 5%;
-}
-
-.location-info-content {
-  max-width: 80%;
-  margin: 1rem auto;
-}
-
-.route-btn {
-  color: #fbf1f6;
-  background: #3fcefe;
-  border-radius: 20px;
-  outline: none;
-  border: 1px solid #3bed8d;
-  padding: 0.8rem 1.5rem;
-  width: 60%;
-  text-transform: uppercase;
-  font-size: inherit;
-}
-
 .route-btn:hover {
   cursor: pointer;
   background: #1995fb;
 }
+.mt-mb {
+  margin: 20px 0 5%;
+}
+.location-info-content {
+  max-width: 80%;
+  margin: 1rem auto;
+}
+.gm-style .gm-style-iw-d::-webkit-scrollbar-track,
+.gm-style .gm-style-iw-d::-webkit-scrollbar-track-piece,
+.gm-style .gm-style-iw-c,
+.gm-style .gm-style-iw-t::after {
+  background: #f6f1fb;
+}
+.infoWindow {
+  color: #222222;
+  background: #f6f1fb;
+  border: 7px solid #3bed8d;
+  padding: 10px;
+}
+.infoWindow > div:nth-of-type(1) > button {
+  background: #3bed8d;
+  color: #f1fbf8;
+  border: 1px solid #3fcefe;
+  border-radius: 20px;
+  width: 100%;
+  padding: 0.8rem 1.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+.infoWindow > div:nth-of-type(2) > button {
+  background: #3fcefe;
+  color: #f1fbf8;
+  border: 1px solid #3bed8d;
+  border-radius: 20px;
+  width: 100%;
+  padding: 0.8rem 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.infoWindow > div:nth-of-type(3) > button {
+  background: #3bed8d;
+  color: #f1fbf8;
+  border: 1px solid #3fcefe;
+  border-radius: 20px;
+  width: 100%;
+  padding: 0.8rem 1.5rem;
+  font-weight: bold;
+}
+
+/* BUTTON RADIO */
+.radioLabel {
+  font-weight: 500;
+  font-size: 1.5rem;
+}
+
+.gm-style-iw {
+  background: #f1fbf8 !important;
+}
+/* .gm-style-iw-d {
+  background: #222222 !important;
+} */

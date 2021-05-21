@@ -4,22 +4,22 @@ import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../../context/auth-context';
 import './NavLinks.css';
 
-const NavLinks = props => {
+const NavLinks = (props) => {
   const auth = useContext(AuthContext);
 
   return (
-    <ul className="nav-links">
+    <ul className='nav-links'>
       {auth.isLoggedIn && (
         <li>
-          <NavLink to="/livemap">LIVEMAP</NavLink>
+          <NavLink to='/livemap'>LIVEMAP</NavLink>
         </li>
       )}
       {auth.isLoggedIn && (
-      <li>
-        <NavLink to="/" exact>
-          ALL USERS
-        </NavLink>
-      </li>
+        <li>
+          <NavLink to='/' exact>
+            PLAYERS
+          </NavLink>
+        </li>
       )}
       {auth.isLoggedIn && (
         <li>
@@ -28,17 +28,17 @@ const NavLinks = props => {
       )}
       {auth.isLoggedIn && (
         <li>
-          <NavLink to="/places/new">ADD FAVORITE PLACE</NavLink>
+          <NavLink to='/places/new'>ADD FAVORITE PLACE</NavLink>
         </li>
       )}
-       {auth.isLoggedIn && (
+      {auth.isLoggedIn && (
         <li>
           <NavLink to={`/${auth.userId}/places`}>MY FAVORITE PLACES</NavLink>
         </li>
       )}
       {!auth.isLoggedIn && (
         <li>
-          <NavLink to="/auth">GET STARTED</NavLink>
+          <NavLink to='/auth'>GET STARTED</NavLink>
         </li>
       )}
       {auth.isLoggedIn && (

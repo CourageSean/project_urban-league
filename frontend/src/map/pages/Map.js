@@ -7,9 +7,9 @@ import {
   DirectionsRenderer,
 } from '@react-google-maps/api';
 import Location from './Location.css';
-import React, { Component, useEffect, useState } from 'react';
+import React, { Component, useEffect, useState, useReducer } from 'react';
 import axios from 'axios';
-// import mapStyles from '../components/mapStyles';
+import mapStyles from './mapStyles';
 import io from 'socket.io-client';
 import UsersList from '../components/UsersList';
 import Modal from '../../shared/components/UIElements/Modal';
@@ -37,7 +37,7 @@ const mapContainerStyle = {
   bottom: '0px',
 };
 const options = {
-  // styles: mapStyles,
+  styles: mapStyles,
   // disableDefaultUI: true,
   zoomControl: true,
   rotateControl: true,
@@ -88,7 +88,9 @@ const Map = () => {
   const [ownLocation, setOwnLocation] = useState(null);
   const [newMarker, setNewMarker] = useState([]);
   const [checkInTime, setCheckInTime] = useState('');
+  const [checkedInInfo, setCheckedInInfo] = useState(null);
   const Arr = [];
+  const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
   // User Posiotion State
   const [user_1Position, setUser_1Position] = useState();
   // On Mapload
@@ -259,22 +261,6 @@ const Map = () => {
     socket.emit('position_room', position);
   };
 
-  // Watch User Position
-  // const watchUserPosition = () => {
-  //   setInterval(() => {
-  //     navigator.geolocation.getCurrentPosition(
-  //       (data) => {
-  //         setTimeout(() => {
-  //           // setUser_1Position(data.coords.latitude, data.coords.longitude);
-  //           sendMessage([data.coords.latitude, data.coords.longitude]);
-  //           // console.log(data.coords.latitude, data.coords.longitude);
-  //         }, 10000);
-  //       },
-  //       (error) => console.log(error)
-  //     );
-  //   }, 20000);
-  // };
-
   // Get Details
   const getSinglePlace = async () => {
     try {
@@ -302,32 +288,12 @@ const Map = () => {
               data.coords.longitude,
               JSON.parse(localStorage.userData).userId,
             ]);
-          }, 20000);
+          }, 5000);
         },
         (error) => console.log(error)
       );
-    }, 40000);
+    }, 10000);
   }
-
-  //Add favourite from Map
-  const addFavMap = async () => {
-    try {
-      const { data } = await axios.post(
-        `https://urban-league.herokuapp.com/api/places/?creator=${
-          JSON.parse(localStorage.userData).userId
-        }&address=${selected.address}&description=${
-          selected.description
-        }&location=${selected.coordinates}&title=${selected.title}&image=${
-          selected.image
-        }`
-      );
-      // window.location.href = 'http://localhost:3000';
-
-      // console.log(data, 'single place checkin sent');
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   // Check In
   const checkIn = async () => {
@@ -340,8 +306,26 @@ const Map = () => {
           JSON.parse(localStorage.userData).userId
         }&time=${checkInTime}`
       );
-      // window.location.href = 'http://localhost:3000';
+
+      window.location.reload();
       console.log(selected._id, 'selected place id');
+      // console.log(data, 'single place checkin sent');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const addFavMap = async () => {
+    try {
+      const { data } = await axios.post(
+        `https://urban-league.herokuapp.com/api/places/?creator=${
+          JSON.parse(localStorage.userData).userId
+        }&address=${selected.address}&description=${
+          selected.description
+        }&location=${selected.coordinates}&title=${selected.title}&image=${
+          selected.image
+        }`
+      );
+      // window.location.href = 'http://localhost:3000';
       // console.log(data, 'single place checkin sent');
     } catch (error) {
       console.log(error);
@@ -419,15 +403,15 @@ const Map = () => {
                         console.log(elt);
                       }}
                       icon={{
-                        url: `/place-marker.png`,
+                        url: `https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Black_square_45degree_angle.svg/1024px-Black_square_45degree_angle.svg.png`,
                         origin: new window.google.maps.Point(0, 0),
                         anchor: new window.google.maps.Point(15, 15),
                         scaledSize: new window.google.maps.Size(50, 50),
-                        labelOrigin: new window.google.maps.Point(33, 0),
+                        // labelOrigin: new window.google.maps.Point(33, 0),
                       }}
                       label={{
                         text: elt.activeUsers.length.toString(),
-                        color: 'black',
+                        color: 'white',
                         fontWeight: 'bold',
                         fontSize: '20px',
                       }}
@@ -454,15 +438,15 @@ const Map = () => {
                         text: loadedUsers.users.find(
                           (elt) => newMarker.userId === elt._id
                         ).name,
-                        color: 'crimson',
+                        color: '#f1fbf8',
                         fontWeight: 'bold',
                         fontSize: '22px',
                       }}
                       icon={{
-                        url: '/dummi.png',
-                        anchor: new window.google.maps.Point(53, 53),
-                        labelOrigin: new window.google.maps.Point(33, -10),
-                        scaledSize: new window.google.maps.Size(50, 50),
+                        url: '/green.svg',
+                        anchor: new window.google.maps.Point(15, 15),
+                        labelOrigin: new window.google.maps.Point(13, -10),
+                        scaledSize: new window.google.maps.Size(30, 30),
                         origin: new window.google.maps.Point(0, 0),
                       }}
                     />
@@ -476,10 +460,10 @@ const Map = () => {
                     lng: ownLocation[1],
                   }}
                   icon={{
-                    url: `/blue-dot.png`,
+                    url: `/blue_sphere.svg`,
                     origin: new window.google.maps.Point(0, 0),
                     anchor: new window.google.maps.Point(15, 15),
-                    scaledSize: new window.google.maps.Size(50, 50),
+                    scaledSize: new window.google.maps.Size(30, 30),
                   }}
                 ></Marker>
               )}
@@ -509,42 +493,46 @@ const Map = () => {
                     setShowDetails(false);
                   }}
                 >
-                  <div>
+                  <div className='infoWindow'>
                     {selected && !selectedPlace && <h2>Text</h2>}
                     {selectedPlace && <h2>{selected.title}</h2>}
-                    {selectedPlace && <h4>Rate 3.5/5</h4>}
+                    {selectedPlace && <h4>Rating: 3.5/5</h4>}
                     {selectedPlace && <h4>{selected.address}</h4>}
-
                     {selectedPlace && (
+                      <div>
+                        <button
+                          onClick={() => {
+                            setShowDetails(true);
+                            console.log(selected);
+                          }}
+                        >
+                          DETAILS & CHECK IN
+                        </button>
+                      </div>
+                    )}
+                    <div>
                       <button
                         onClick={() => {
-                          setShowDetails(true);
-
                           console.log(selected);
+                          addFavMap();
                         }}
                       >
-                        More Info & Check In
+                        ADD 2 FAVORITES
                       </button>
-                    )}
-                    <button
-                      onClick={() => {
-                        console.log(selected);
-                        addFavMap();
-                      }}
-                    >
-                      + favourite
-                    </button>
-                    <button
-                      onClick={() => {
-                        calculateRoute({
-                          lat: selected.coordinates.lat,
-                          lng: selected.coordinates.lng,
-                        });
-                      }}
-                    >
-                      {' '}
-                      Navigate
-                    </button>
+                    </div>
+                    <div>
+                      <button
+                        onClick={() => {
+                          calculateRoute({
+                            lat: selected.coordinates.lat,
+                            lng: selected.coordinates.lng,
+                          });
+                        }}
+                      >
+                        {' '}
+                        ROUTE
+                      </button>
+                    </div>
                   </div>
                 </InfoWindow>
               ) : null}
@@ -567,6 +555,11 @@ const Map = () => {
             </h2>
             <img src={selected.image} alt='' />
             <div className='location-info-content'>
+              {checkedInInfo && (
+                <div>
+                  <h3>You informed others that you'll be here for ${}min.</h3>
+                </div>
+              )}
               <h2>{selected.title}</h2>
               <p>{selected.description}</p>
               <p>@{selected.address}</p>
@@ -581,32 +574,54 @@ const Map = () => {
               })}
               <p>possible sports </p>
               <div>
-                <h1>Checking In</h1>
-                <label htmlFor='time' name=''>
-                  30min
-                </label>
-                <input
-                  type='radio'
-                  name='time'
-                  id='thirty'
-                  onChange={() => {
-                    setCheckInTime(60000);
-                  }}
-                />
-                <label htmlFor='time'>60min</label>
-                <input
-                  type='radio'
-                  name='time'
-                  id='sixty'
-                  onChange={() => {
-                    setCheckInTime(120000);
-                  }}
-                />
+                <h3>
+                  Inform others about for how long u intend to use this spot.
+                </h3>
+                <div>
+                  <div>
+                    <label className='radioLabel' htmlFor='thirty' name=''>
+                      30min
+                    </label>
+                    <input
+                      type='radio'
+                      name='time'
+                      id='thirty'
+                      onChange={() => {
+                        setCheckInTime(180000);
+                      }}
+                    />
+                  </div>
+                  <div>
+                    <label className='radioLabel' htmlFor='sixty'>
+                      60min
+                    </label>
+                    <input
+                      type='radio'
+                      name='time'
+                      id='sixty'
+                      onChange={() => {
+                        setCheckInTime(240000);
+                      }}
+                    />
+                  </div>
+                </div>
                 <br />
-                <button className='checkin-btn mt-mb' onClick={checkIn}>
+                <button
+                  className='checkin-btn'
+                  onClick={() => {
+                    checkIn();
+
+                    setCheckedInInfo(true);
+                    setTimeout(() => {
+                      setCheckedInInfo(null);
+                      setShowDetails(null);
+                    }, 5000);
+                  }}
+                >
                   check in
                 </button>
                 <br />
+
                 <button
                   className='route-btn'
                   onClick={() => {
